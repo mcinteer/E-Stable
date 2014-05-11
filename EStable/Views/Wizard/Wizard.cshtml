@@ -1,0 +1,45 @@
+﻿@model EStable.Models.Wizard.StableWizardBase
+
+@{
+    ViewBag.Title = "Setup Wizard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="wizardStepCounter" class="wizard-step-counter">
+    <img id="wizardStepImage" />
+</div>
+<div class="wizard">
+    <div id="stepOne" class="">
+        @*@Html.Partial("_StepOneContactInformation", Model)*@
+    </div>
+    <div id="stepTwo" class="hidden">
+        @Html.Partial("_StepTwoFinancialDetails", Model)
+    </div>
+    <div id="stepThree" class="">
+        @Html.Partial("_StepThreeStableTypeCharges", Model)
+    </div>
+    <div id="stepFour" class="">
+        @Html.Partial("_StepFourAnimalDetails", Model)
+    </div>
+    <div id="stepFive" class="">
+        @Html.Partial("_StepFiveAnimalChargeType", Model)
+    </div>
+    <div id="stepSix" class="">
+        @Html.Partial("_StepSixOwners", Model)
+    </div>
+    <div id="stepSeven" class="">
+        @Html.Partial("_StepSevenOwnership", Model)
+    </div>
+    <div id="stepEight" class="">
+        @Html.Partial("_StepEightSummary", Model)
+    </div>
+</div>
+<script>
+    showDivById(@Model.CurrentStep.ToString());
+</script>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

@@ -1,0 +1,58 @@
+﻿@model EStable.Models.Wizard.SummaryWizard
+
+@{
+    ViewBag.Title = "StableTypeChargesStepThree";
+    ViewBag.Email = Model.Email;
+    Layout = "~/Views/Wizard/_Layout.cshtml";
+    var owners = Model.Owner;
+}
+
+<div id="wizardStepCounter" class="wizard-step-counter">
+    <img id="wizardStepImage" src="../../Content/Images/WizardSteps.png" />
+</div>
+<div class="wizard">
+    <div id="stepOne" class="">
+        @using (Html.BeginForm("PostStepSix","Wizard"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <script src="../../Content/Javascript/Wizard.js">
+        
+            </script>
+    
+            <div class="wizard-step">
+                <h3>Step Six - Owners</h3>
+                <div class="float-left ">
+                    <div class="wizard-field">
+                        <div class="wizard-label float-left">
+                            
+                        </div>
+                        <div class="wizard-input float-right ">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <div class="wizard-field">
+                        <div class="wizard-label float-left ">
+                    
+                        </div>
+                        <div class="wizard-input float-right ">
+                    
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="email" id="email" value="@Model.Email"/>
+                <div class="buttons clear-both">
+                    <div class="wizard-back-wrapper float-left">
+                        <input class="btn btn-lg btn-default" name="submit" id="back" type="submit" value="Back"/>
+                    </div>
+
+                    <div class="wizard-next-wrapper float-right">
+                        <input class="btn btn-lg btn-primary" name="submit" id="next" type="submit" value="Next"/>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

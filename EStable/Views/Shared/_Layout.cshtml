@@ -1,0 +1,35 @@
+﻿@using EStable.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title  - EStable</title>
+    <link href="@Url.Content("~/Content/Layout.css")" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+</head>
+    <body>
+        <header>
+            <div id="header">
+                <div class="header-wrapper">
+                    <div class="float-left">
+                        <p class="page-title">@ViewBag.Title</p>
+                    </div>
+                    <div class="float-right">
+                        @Html.Partial("_LoginPartial", new AccountModel())
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="buffer">
+            
+        </div>
+        <div class="body">
+            @RenderBody()
+        </div>
+        <footer>
+            
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+﻿@model EStable.Models.Wizard.StableWizardBase
+
+@{
+    ViewBag.Title = "Wizard - Start";
+    ViewBag.Email = Model.Email;
+    Layout = "_Layout.cshtml";
+}
+
+<div class="wizard-start">
+    <div id="stepZero" class="">
+        @using (Html.BeginForm("PostStepZero", "Wizard"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="wizard-start-step-wrapper">
+                <div class="centre field">
+                    <div class="">
+                        @if (false == Model.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                @Html.ValidationSummary()
+                            </div>
+                        }
+                        <div class="panel panel-default" style="width:23em;">
+                            <div class="wizard-input email-input panel-heading">
+                                
+                                @Html.TextBoxFor(model => Model.Email, new
+                                    {
+                                        @class      = "email-text-box form-control",
+                                        placeholder = "Email Address"
+                                    })
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="buttons centre less-margin">
+                    <div class="commence-wizard-wrapper centre">
+                        <input class="btn btn-lg btn-primary margin-top" name="submit" id="next" type="submit" value="Commence eStable Creation"/>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

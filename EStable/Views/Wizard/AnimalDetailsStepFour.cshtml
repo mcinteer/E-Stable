@@ -1,0 +1,89 @@
+﻿@model EStable.ViewModels.UserOfStableViewModels.Wizard.StepFour.AnimalDetailsViewModel
+
+@{
+    ViewBag.Title = "StableTypeChargesStepThree";
+    ViewBag.Email = Model.Email;
+    Layout = "_Layout.cshtml";
+}
+@*Styles*@
+<link href="~/Content/Styles/jquery.dynatable.css" rel="stylesheet" />
+<link href="~/Content/Styles/Wizard/WizardBase.css" rel="stylesheet" />
+<link href="~/Content/Styles/Wizard/StepFour.css" rel="stylesheet" />
+@*Javascript Libraries*@
+<script src="~/Content/Javascript/Common/jquery-1.7.2.min.js"></script>
+<script src="~/Content/Javascript/Common/jquery.dynatable.js"></script>
+<script src="~/Content/Javascript/Common/EstableBase.js"></script>
+
+@*Javascript Logic*@
+<script src="~/Content/Javascript/Areas/Wizard/AnimalDetails/AnimalDetails.js"></script>
+
+<div id="wizardStepCounter" class="wizard-step-counter">
+    <img id="wizardStepImage" src="../../Content/Images/WizardSteps.png" />
+</div>
+<div class="wizard">
+    <div id="stepOne" class="">
+        @using (Html.BeginForm("PostStepFour","Wizard"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            
+            <div class="wizard-step-4">
+                <h3>Step Four - Animal Details</h3>
+                <div class="panel panel-default">
+                    <div class="panel-heading tbl-heading">Animal Details</div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-hover" id="tblAnimal">
+                            <thead>
+                                <tr>
+                                    <th class="dynatable-head">Racing Name</th>
+                                    <th class="dynatable-head">Stable Name</th>
+                                    <th class="dynatable-head">Sire</th>
+                                    <th class="dynatable-head">Dam</th>
+                                    <th class="dynatable-head">Gender</th>
+                                    <th class="dynatable-head">Date Of Birth</th>
+                                    <th class="dynatable-head">Colour</th>
+                                    <th class="dynatable-head">Markings</th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                            </tbody>
+                        </table>
+                
+                        <script type="text/javascript">
+                            createAnimalTable('@Model.GetAnimalJson()');
+                        </script>
+
+                        <div class="messagepop pop-animal">
+                            <form method="POST" id="new_animal">
+                                <p><input class="form-control" placeholder="Racing Name" type="text" size="30" name="racingName" id="racingName" /></p>
+                                <p><input class="form-control" placeholder="Stable Name" type="text" size="30" name="stableName" id="stableName" /></p>
+                                <p><input class="form-control" placeholder="Sire" type="text" size="30" name="sire" id="sire" /></p>
+                                <p><input class="form-control" placeholder="Dam" type="text" size="30" name="dam" id="dam" /></p>
+                                <p><input class="form-control" placeholder="Gender" type="text" size="30" name="gender" id="gender" /></p>
+                                <p><input class="form-control" placeholder="Date of Birth" type="text" size="30" name="dateOfBirth" id="dateOfBirth" /></p>
+                                <p><input class="form-control" placeholder="Colour" type="text" size="30" name="colour" id="colour" /></p>
+                                <p><input class="form-control" placeholder="Markings" type="text" size="30" name="markings" id="markings" /></p>
+                        
+                                <p><a href="#" class="btn btn-lg btn-primary" id="submit-add-animal">Add Animal</a> <a class="btn btn-lg btn-default" id="close-animal" href="/">Cancel</a></p>
+                            </form>
+                        </div>
+
+                        <a href="#" class="btn btn-sm btn-info" id="addAnimal">Add an Animal</a>
+                    </div>
+                </div>
+
+                <input type="hidden" name="email" id="email" value="@Model.Email"/>
+
+                <div class="buttons clear-both btn-group">
+                    <div class="wizard-back-wrapper float-left">
+                        <input class="btn btn-lg btn-default wizard-buttons" name="submit" id="back" type="submit" value="Back"/>
+                    </div>
+
+                    <div class="wizard-next-wrapper float-right">
+                        <input class="btn btn-lg btn-primary wizard-buttons" name="submit" id="next" type="submit" value="Next"/>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

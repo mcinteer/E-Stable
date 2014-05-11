@@ -1,0 +1,104 @@
+﻿@model EStable.ViewModels.UserOfStableViewModels.Wizard.StepTwo.FinancialInformationViewModel
+@{
+    ViewBag.Title = "Setup Wizard";
+    ViewBag.Email = Model.Email;
+    Layout = "~/Views/Wizard/_Layout.cshtml";
+}
+<div id="wizardStepCounter" class="wizard-step-counter">
+    <img id="wizardStepImage" src="../../Content/Images/WizardSteps.png" />
+</div>
+<div class="wizard">
+    <div id="stepTwo" class="">
+        <div class="stable-name">
+            @Model.StableName
+        </div>
+        @using (Html.BeginForm("PostStepTwo","Wizard"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="wizard-step">
+                <div class="float-left wizard-inputs">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Financial Information</div> 
+                        <div class="panel-body">
+                            @if (false == Model.IsValid)
+                            {
+                                <div class="alert alert-danger">
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.GSTNumber, new
+                                        {
+                                            @class = "financial-information-text-box form-control",
+                                            Id = "gstNumber",
+                                            placeholder="GST Number"
+                                        })
+                                </div>
+                            </div>
+            
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.GSTRate, new
+                                        {
+                                            @class = "financial-information-text-box form-control",
+                                            Id = "gstRate",
+                                            placeholder="GST Rate"
+                                        })
+                                </div>
+                            </div>
+
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+
+                                    @Html.TextBoxFor(model => Model.GSTEffectiveDate, new
+                                        {
+                                            @class = "financial-information-text-box form-control",
+                                            Id = "gstEffectiveDate",
+                                            placeholder="GST Effective Date"
+                                        })
+                                </div>
+                            </div>
+
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.NextInvoiceNumber, new
+                                        {
+                                            @class = "financial-information-text-box form-control",
+                                            Id = "nextInvoiceNumber",
+                                            placeholder="Next Invoice number"
+                                        })
+                                </div>
+                            </div>
+            
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.PreviousGSTRate, new
+                                        {
+                                            @class = "financial-information-text-box form-control",
+                                            Id = "previousGstRave",
+                                            placeholder="Previous GST Rate"
+                                        })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <input type="hidden" name="email" id="email" value="@Model.Email"/>
+
+                <div class="buttons clear-both btn-group">
+                    <div class="wizard-back-wrapper float-left">
+                        <input class="btn btn-lg btn-default wizard-buttons" name="submit" id="back" type="submit" value="Back"/>
+                    </div>
+
+                    <div class="wizard-next-wrapper float-right">
+                        <input class="btn btn-lg btn-primary wizard-buttons" name="submit" id="next" type="submit" value="Next"/>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿
+@model EStable.Models.AccountModel
+
+@if (Html.Action("IsAuthenticated", "Account").ToString() == "True")
+{
+    <text>
+        
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+            @Html.AntiForgeryToken()
+            <text>Hello, @Model.FirstName .</text> <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        }
+    </text>
+} else {
+    <div class="account-buttons-wrapper">
+        <ul class="account-buttons">
+            @*<li>@Html.ActionLink("Register", "GetRegisterUserOfStableForm", "Account")</li>*@
+            <li>@Html.ActionLink("Register", "Index", "Wizard")</li>
+            <li>|</li>
+            <li>@Html.ActionLink("Log in", "GetLoginForm", "Account")</li>
+        </ul>
+    </div>
+}

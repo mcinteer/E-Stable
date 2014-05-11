@@ -1,0 +1,178 @@
+﻿@model EStable.ViewModels.UserOfStableViewModels.Wizard.StepFive.AjaxStableOwnershipViewModel
+@{
+    ViewBag.Title = "Setup Wizard";
+    ViewBag.Email = Model.Email;
+    Layout = "~/Views/Wizard/_Layout.cshtml";
+}
+
+@*Styles*@
+<link href="~/Content/Styles/jquery.dynatable.css" rel="stylesheet" />
+<link href="~/Content/Styles/Wizard/StepFive.css" rel="stylesheet" />
+<link href="~/Content/Styles/Wizard/WizardBase.css" rel="stylesheet" />
+
+@*Javascript Libraries*@
+<script src="~/Content/Javascript/Common/jquery-1.7.2.min.js"></script>
+<script src="~/Content/Javascript/Common/jquery.dynatable.js"></script>
+<script src="~/Content/Javascript/Common/EstableBase.js"></script>
+
+@*Javascript Logic*@
+<script src="~/Content/Javascript/Areas/Wizard/Owners/Owners.js"></script>
+
+<div id="wizardStepCounter" class="wizard-step-counter">
+    <img id="wizardStepImage" src="../../Content/Images/WizardSteps.png" />
+</div>
+
+<div class="wizard">
+    <div id="stepTwo" class="">
+        <div class="stable-name">
+            @Model.StableName
+        </div>
+        @using (Html.BeginForm("PostStepFive", "Wizard"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="wizard-step-4">
+                <h3>Step Five - Owners</h3>
+                @if (Model.AnimalOwnerships.Any())
+                {
+                    foreach (var ownership in Model.AnimalOwnerships)
+                    {
+                        var tableID = string.Format("tbl-owner-{0}", ownership.Key.Replace(" ", "-"));
+                        <div class="panel panel-default">
+                            <div class="panel-heading">@ownership.Key</div>
+                            <div class="panel-body">
+                        
+                                <table class="table table-striped table-hover" id="tbl-@tableID">
+                                    <thead>
+                                        <tr>
+                                            <th class="dynatable-head">Owner Name</th>
+                                            <th class="dynatable-head">Percent Owned</th>
+                                            <th class="dynatable-head">Has Been Invoiced</th>
+                                            <th class="dynatable-head">Owner Email</th>
+                                            <th class="dynatable-head">Is Syndicate</th>
+                                            <th class="dynatable-head">Syndicate Name</th>
+                                            <th class="dynatable-head">Day Phone</th>
+                                            <th class="dynatable-head">Night Phone</th>
+                                            <th class="dynatable-head">Mobile Phone</th>
+                                            <th class="dynatable-head">Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <script type="text/javascript">
+                                    createOwnerTable('@Model.GetOwnershipJson(ownership.Key)', '@tableID');
+                                    setupClickEvents('@tableID');
+                                </script>
+
+                                <div class="messagepop pop-owner-@tableID">
+                                    <form method="POST" id="new_owner">
+                                        <p><input class="form-control" placeholder="Owner Name" type="text" size="30" name="@string.Format("ownerName-{0}", tableID)" id="@string.Format("ownerName-{0}", tableID)" /></p>
+                                        <p><input class="form-control" placeholder="Percent Owned" type="text" size="30" name="@string.Format("percentOwned-{0}", tableID)" id="@string.Format("percentOwned-{0}", tableID)" /></p>
+                                        <p>
+                                            <label for="@string.Format("invoiced-{0}", tableID)">Has Been Invoiced</label>
+                                            <input class="form-control" type="radio" size="30" name="@string.Format("invoiced-{0}", tableID)" value="yes" />Yes
+                                            <input class="form-control" type="radio" size="30" name="@string.Format("invoiced-{0}", tableID)" value="no" />No
+                                        </p>
+                                        <p><input class="form-control" placeholder="Owner Email" type="text" size="30" name="@string.Format("ownerEmail-{0}", tableID)" id="@string.Format("ownerEmail-{0}", tableID)" /></p>
+                                        <p>
+                                            <label for="@string.Format("syndicate-{0}", tableID)">Is a Syndicate</label>
+                                            <input class="form-control" type="radio" size="30" name="@string.Format("syndicate-{0}", tableID)" value="yes" />Yes
+                                            <input class="form-control" type="radio" size="30" name="@string.Format("syndicate-{0}", tableID)" value="no" />No
+                                        </p>
+                                        @*TODO: make syndicate name only show when the user has selected yes for is a syndicate*@
+                                        <p><input class="form-control syndicateName" placeholder="Syndicate Name" type="text" size="30" name="@string.Format("syndicateName-{0}", tableID)" id="@string.Format("syndicateName-{0}", tableID)" /></p>
+                                        <p><input class="form-control" placeholder="Daytime Phone Number" type="text" size="30" name="@string.Format("dayPhone-{0}", tableID)" id="@string.Format("dayPhone-{0}", tableID)" /></p>
+                                        <p><input class="form-control" placeholder="Nightime Phone Number" type="text" size="30" name="@string.Format("nightPhone-{0}", tableID)" id="@string.Format("nightPhone-{0}", tableID)" /></p>
+                                        <p><input class="form-control" placeholder="Mobile Phone Number" type="text" size="30" name="@string.Format("mobilePhone-{0}", tableID)" id="@string.Format("mobilePhone-{0}", tableID)" /></p>
+                                        <p><input class="form-control" placeholder="Address" type="text" size="30" name="@string.Format("address-{0}", tableID)" id="@string.Format("address-{0}", tableID)" /></p>
+                        
+                                        <p><a href="#" class="btn btn-lg btn-primary float-right" id="@string.Format("submit-add-owner-{0}", tableID)">Add Ownership</a><a class="btn btn-lg btn-default close-owner-@tableID float-left" href="/">Cancel</a></p>
+                                    </form>
+                                </div>
+
+                                <a href="#" class="btn btn-sm btn-info" id="@string.Format("addOwner-{0}", tableID)">Add an Owner</a>
+                                <input type="hidden" value="@ownership.Key" id="@string.Format("animal-name-{0}", tableID)"/>
+                            </div>
+                        </div>
+                        <div class="tbl-spacer"></div>
+                    }
+                }
+                else
+                {
+                    var tableID = string.Format("tbl-owner-{0}", "emptytbl");
+                    <div class="panel panel-default">
+                        <div class="panel-heading"></div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-hover" id="@tableID">
+                                <thead>
+                                    <tr>
+                                        <th class="dynatable-head">Animal Name</th>
+                                        <th class="dynatable-head">Owner</th>
+                                        <th class="dynatable-head">Percent Owned</th>
+                                        <th class="dynatable-head">Invoiced?</th>
+                                        <th class="dynatable-head">Email</th>
+                                        <th class="dynatable-head">Syndicate?</th>
+                                        <th class="dynatable-head">Name</th>
+                                        <th class="dynatable-head">DayPhone</th>
+                                        <th class="dynatable-head">NightPhone</th>
+                                        <th class="dynatable-head">MobilePhone</th>
+                                        <th class="dynatable-head">Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <script type="text/javascript">
+                                createOwnerTable(null, '@tableID');
+                                setupClickEvents('@tableID');
+                            </script>
+
+                            <div class="messagepop pop-owner-@tableID">
+                                <form method="POST" id="new_owner">
+                                    <p><input class="form-control" placeholder="Owner Name" type="text" size="30" name="@string.Format("ownerName-{0}", tableID)" id="@string.Format("ownerName-{0}", tableID)" /></p>
+                                    <p><input class="form-control" placeholder="Percent Owned" type="text" size="30" name="@string.Format("percentOwned-{0}", tableID)" id="@string.Format("percentOwned-{0}", tableID)" /></p>
+                                    <p>
+                                        <label for="@string.Format("invoiced-{0}", tableID)">Has Been Invoiced</label>
+                                        <input class="form-control" type="radio" size="30" name="@string.Format("invoiced-{0}", tableID)" value="yes" />Yes
+                                        <input class="form-control" type="radio" size="30" name="@string.Format("invoiced-{0}", tableID)" value="no" />No
+                                    </p>
+                                    <p><input class="form-control" placeholder="Owner Email" type="text" size="30" name="@string.Format("ownerEmail-{0}", tableID)" id="@string.Format("ownerEmail-{0}", tableID)" /></p>
+                                    <p>
+                                        <label for="@string.Format("syndicate-{0}", tableID)">Is a Syndicate</label>
+                                        <input class="form-control" type="radio" size="30" name="@string.Format("syndicate-{0}", tableID)" value="yes" />Yes
+                                        <input class="form-control" type="radio" size="30" name="@string.Format("syndicate-{0}", tableID)" value="no" />No
+                                    </p>
+                                    @*TODO: make syndicate name only show when the user has selected yes for is a syndicate*@
+                                    <p><input class="form-control syndicateName" placeholder="Syndicate Name" type="text" size="30" name="@string.Format("syndicateName-{0}", tableID)" id="@string.Format("syndicateName-{0}", tableID)" /></p>
+                                    <p><input class="form-control" placeholder="Daytime Phone Number" type="text" size="30" name="@string.Format("dayPhone-{0}", tableID)" id="@string.Format("dayPhone-{0}", tableID)" /></p>
+                                    <p><input class="form-control" placeholder="Nightime Phone Number" type="text" size="30" name="@string.Format("nightPhone-{0}", tableID)" id="@string.Format("nightPhone-{0}", tableID)" /></p>
+                                    <p><input class="form-control" placeholder="Mobile Phone Number" type="text" size="30" name="@string.Format("mobilePhone-{0}", tableID)" id="@string.Format("mobilePhone-{0}", tableID)" /></p>
+                                    <p><input class="form-control" placeholder="Address" type="text" size="30" name="@string.Format("address-{0}", tableID)" id="@string.Format("address-{0}", tableID)" /></p>
+                        
+                                    <p><a href="#" class="btn btn-lg btn-primary" id="@string.Format("submit-add-owner-{0}", tableID)">Add Ownership</a><a class="btn btn-lg btn-default close-owner-@tableID" href="/">Cancel</a></p>
+                                </form>
+                            </div>
+
+                            <a href="#" class="btn btn-sm btn-info" id="@string.Format("addOwner-{0}", tableID)">Add an Owner</a>
+                        </div>
+                    </div>
+                }
+                    
+                <input type="hidden" name="email" id="email" value="@Model.Email"/>
+                <div class="buttons clear-both">
+                    <div class="wizard-back-wrapper float-left">
+                        <input class="btn btn-lg btn-default wizard-buttons" name="submit" id="back" type="submit" value="Back"/>
+                    </div>
+
+                    <div class="wizard-next-wrapper float-right">
+                        <input class="btn btn-lg btn-primary wizard-buttons" name="submit" id="next" type="submit" value="Next"/>
+                    </div>
+                </div>
+                
+            </div>
+        }
+        
+    </div>
+</div>
+

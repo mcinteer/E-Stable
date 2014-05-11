@@ -1,0 +1,152 @@
+﻿@model EStable.ViewModels.UserOfStableViewModels.Wizard.StepOne.ContactDetailsViewModel
+@{
+    ViewBag.Title = "Setup Wizard";
+    ViewBag.Email = Model.Email;
+    Layout = "_Layout.cshtml";
+}
+
+
+<div id="wizardStepCounter" class="wizard-step-counter">
+    <img id="wizardStepImage" src="../../Content/Images/WizardSteps.png" />
+</div>
+<div class="wizard">
+    <div id="stepOne" class="">
+        @using (Html.BeginForm("SaveContactDetails","Wizard"))
+        {
+            @Html.AntiForgeryToken()
+            <script src="../../Content/Javascript/Wizard.js"></script>
+    
+            <div class="wizard-step">
+                
+                <div class="float-left wizard-inputs">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Contact Information</div>
+                        <div class="panel-body">
+                            @if (false == Model.IsValid)
+                            {
+                                <div class="alert alert-danger">
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            <div class="wizard-field">
+                        
+                                <div class="wizard-input float-right">
+                                    @Html.TextBoxFor(model => Model.StableName, new
+                                        {
+                                            @class = "contact-information-text-box form-control",
+                                            Id = "stableName",
+                                            placeholder="Stable Name"
+                                        })
+                                </div>
+                            </div>
+
+                            <div class="wizard-field-stable-type">
+                                <div class="radio-btn-group">
+                                    @*<ul>*@
+                                    @foreach (var option in Model.PossibleStableType)
+                                    {
+                                @*<li class="list-style-none">*@
+                                        <span class="stable-type-wrapper">
+                                            @Html.RadioButtonFor(model => Model.StableType, option, new
+                                                {
+                                                    @class = "form-control"
+                                                })
+                                            @Html.DisplayFor(model => option)
+                                        </span>
+                                        /*</li>*/
+                                    }    
+                                    @*</ul>*@
+                            
+                                </div>
+                            </div>
+
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.Trainer, new
+                                        {
+                                            @class          = "contact-information-text-box form-control",
+                                            id             = "trainerName",
+                                            placeholder    = "Trainer Name" 
+                                        })
+                                </div>
+                            </div>
+                    
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.LegalEntity, new
+                                        {
+                                            @class      = "contact-information-text-box form-control",
+                                            id          = "legalName",
+                                            placeholder = "Legal Name"
+                                        })
+                                </div>
+                            </div>
+
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.Jurisdiction, new
+                                        {
+                                            @class      = "contact-information-text-box form-control",
+                                            id          = "jurisdiction",
+                                            placeholder = "Jurisdiction"
+                                        })
+                                </div>
+                            </div>
+                    
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.Mobile, new
+                                        {
+                                            @class      = "contact-information-text-box form-control",
+                                            id          = "mobileNumber",
+                                            placeholder = "Mobile Number"
+                                        })
+                                </div>
+                            </div>
+                    
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.Phone, new
+                                        {
+                                            @class      = "contact-information-text-box form-control",
+                                            id          = "phoneNumber",
+                                            placeholder = "Phone Number"
+                                        })
+                                </div>
+                            </div>
+                    
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextBoxFor(model => Model.Fax, new
+                                        {
+                                            @class      = "contact-information-text-box form-control",
+                                            id          = "faxNumber",
+                                            placeholder = "Fax Number"
+                                        })
+                                </div>
+                            </div>
+                    
+                            <div class="wizard-field">
+                                <div class="wizard-input float-right ">
+                                    @Html.TextAreaFor(model => Model.Address, new
+                                        {
+                                            @class      = "contact-information-text-box form-control",
+                                            id          = "address",
+                                            placeholder = "Address"
+                                        })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                    <input type="hidden" name="email" id="email" value="@Model.Email"/>
+                <div class="buttons clear-both btn-group">
+                    <div class="wizard-next-wrapper float-right">
+                        <input class="btn btn-lg btn-primary wizard-buttons" name="submit" id="next" type="submit" value="Next"/>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
