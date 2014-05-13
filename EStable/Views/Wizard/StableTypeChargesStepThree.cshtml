@@ -45,10 +45,9 @@
                             </table>    
                     
                         </div>
-                        <script type="text/javascript">
-                            createStableChargesTable('@Model.GetStableChargeTypesJson()');
-
-                        </script>
+                        
+                        <script type="text/html" id="data">@Model.GetStableChargeTypesJson()</script>
+                       
                         
                         @Html.Partial("Partials/_AddStableChargeForm", new StableChargeTypeViewModel())
                         
