@@ -48,6 +48,9 @@
     <Reference Include="FluentValidation.Mvc">
       <HintPath>..\packages\FluentValidation.MVC4.5.1.0.0\lib\Net40\FluentValidation.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="LumenWorks.Framework.IO">
+      <HintPath>..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\Unity.2.0\lib\20\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -157,6 +160,7 @@
     </Compile>
     <Compile Include="Helpers\XmlSerializationHelper.cs" />
     <Compile Include="Identity\UserOfStableIdentity.cs" />
+    <Compile Include="Importers\StableChargeImporter.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Stable.cs" />
     <Compile Include="Models\Wizard\Stable Wizard\AnimalDetailsWizardBase.cs" />
@@ -236,18 +240,26 @@
     <Content Include="Content\bootstrap-3.1.1-dist\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap-3.1.1-dist\js\bootstrap.js" />
     <Content Include="Content\bootstrap-3.1.1-dist\js\bootstrap.min.js" />
+    <Content Include="Content\dist\css\layout.css" />
+    <Content Include="Content\dist\css\layout.min.css" />
     <Content Include="Content\dist\css\main.css" />
     <Content Include="Content\dist\css\main.min.css" />
+    <Content Include="Content\dist\css\vendor\jquery.dynatable.css" />
+    <Content Include="Content\dist\css\vendor\jquery.dynatable.min.css" />
+    <Content Include="Content\dist\css\Wizard\StepFive.css" />
+    <Content Include="Content\dist\css\Wizard\StepFive.min.css" />
+    <Content Include="Content\dist\css\Wizard\StepFour.css" />
+    <Content Include="Content\dist\css\Wizard\StepFour.min.css" />
+    <Content Include="Content\dist\css\Wizard\StepSix.css" />
+    <Content Include="Content\dist\css\Wizard\StepSix.min.css" />
+    <Content Include="Content\dist\css\Wizard\StepThree.css" />
+    <Content Include="Content\dist\css\Wizard\StepThree.min.css" />
+    <Content Include="Content\dist\css\Wizard\WizardBase.css" />
+    <Content Include="Content\dist\css\Wizard\WizardBase.min.css" />
     <Content Include="Content\dist\js\EstableBase.js" />
     <Content Include="Content\dist\js\EstableBase.min.js" />
     <Content Include="Content\Images\Grey Background.jpg" />
     <Content Include="Content\Images\WizardSteps.png" />
-    <Content Include="Content\Javascript\Areas\Wizard\AnimalDetails\AnimalDetails.js" />
-    <Content Include="Content\Javascript\Areas\Wizard\Owners\Owners.js" />
-    <Content Include="Content\Javascript\Areas\Wizard\StableCharges\StableCharges.js" />
-    <Content Include="Content\Javascript\Areas\Wizard\StableCharges\StandardCharges.js" />
-    <Content Include="Content\Javascript\Common\EstableBase.js" />
-    <Content Include="Content\Javascript\Common\jquery-1.7.2.min.js" />
     <Content Include="Content\src\js\EstableBase.js" />
     <Content Include="Content\src\js\vendor\jquery-1.7.2.min.js" />
     <Content Include="Content\src\js\vendor\jquery.appendGrid-1.3.1.js" />
@@ -264,12 +276,6 @@
     <None Include="Content\src\sass\Wizard\StepSix.scss" />
     <None Include="Content\src\sass\Wizard\StepThree.scss" />
     <None Include="Content\src\sass\Wizard\WizardBase.scss" />
-    <Content Include="Content\Styles\jquery.dynatable.css" />
-    <Content Include="Content\Javascript\Common\jquery.dynatable.js" />
-    <Content Include="Content\Javascript\jquery.appendGrid-1.3.1.js" />
-    <Content Include="Content\Javascript\jquery.appendGrid-1.3.1.min.js" />
-    <Content Include="Content\Javascript\jquery.appendGrid-development.js" />
-    <Content Include="Content\Javascript\Require.js" />
     <Content Include="Content\JQuery\jquery-ui-1.10.2\AUTHORS.txt" />
     <Content Include="Content\JQuery\jquery-ui-1.10.2\demos\accordion\collapsible.html" />
     <Content Include="Content\JQuery\jquery-ui-1.10.2\demos\accordion\custom-icons.html" />
@@ -963,16 +969,7 @@
     <Content Include="Content\JQuery\jquery-ui-1.10.2\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Content\JQuery\jquery-ui-1.10.2\ui\minified\jquery.ui.tooltip.min.js" />
     <Content Include="Content\JQuery\jquery-ui-1.10.2\ui\minified\jquery.ui.widget.min.js" />
-    <Content Include="Content\Styles\jquery.appendGrid-1.3.1.css" />
-    <Content Include="Content\Styles\jquery.appendGrid-1.3.1.min.css" />
-    <Content Include="Content\Styles\jquery.appendGrid-development.css" />
-    <Content Include="Content\Styles\Wizard\StepFive.css" />
-    <Content Include="Content\Styles\Wizard\StepFour.css" />
-    <Content Include="Content\Styles\Wizard\StepSix.css" />
-    <Content Include="Content\Styles\Wizard\StepThree.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Styles\Wizard\WizardBase.css" />
+    <None Include="Content\src\sass\vendor\jquery.dynatable.scss" />
     <Content Include="Global.asax" />
     <Content Include="License.txt" />
     <Content Include="Web.config">

@@ -19,6 +19,7 @@ using EStable.ViewModels.UserOfStableViewModels.Wizard.StepOne;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.StepThree;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.StepTwo;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.Step_Six;
+using LumenWorks.Framework.IO.Csv;
 
 namespace EStable.Controllers
 {
@@ -400,6 +401,11 @@ namespace EStable.Controllers
         public JsonResult SaveStableCharge(string unit, string instable, string description, string rate, string email)
         {
             var charges = _stableChargeTypeBouncer.SaveStableCharge(unit, instable, description, rate, email);
+            return GetStableChargeJson(charges);
+        }
+
+        private static JsonResult GetStableChargeJson(List<StableChargeTypeViewModel> charges)
+        {
             return new JsonResult()
                 {
                     Data = new
@@ -408,6 +414,14 @@ namespace EStable.Controllers
                             totalRecordCount = charges.Count
                         }
                 };
+        }
+
+        public ActionResult ImportStableCharges(string email)
+        {
+            var chargeTypes = _stableChargeTypeBouncer.ImportStableCharges(Request.Files[0], email);
+            chargeTypes.Email = email;
+            var viewModel = _chargeTypeViewModelFactory.ToViewModel(chargeTypes);
+            return View("StableTypeChargesStepThree", viewModel);
         }
 
         public JsonResult SaveStandardCharge(string description, string rate, string email)
@@ -455,5 +469,7 @@ namespace EStable.Controllers
                         }
                 };
         }
+
+        
     }
 }

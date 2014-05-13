@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>LumenWorksCsvReader</id>
+    <version>3.8.2</version>
+    <title>LumenWorks CSV Reader</title>
+    <authors>S�bastien Lorion,  Paul Hatcher</authors>
+    <owners>S�bastien Lorion,  Paul Hatcher</owners>
+    <licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/phatcher/CsvReader</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An extended version of LumenWorks.Frameworks.IO</description>
+    <copyright>Copyright � 2005 S�bastien Lorion, 2014 Paul Hatcher</copyright>
+    <tags>CSV</tags>
+  </metadata>
+</package>

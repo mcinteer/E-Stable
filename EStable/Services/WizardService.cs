@@ -85,7 +85,10 @@ namespace EStable.Services
             
             contact.Merge(wizard.ContactInformation);
             wizard.ContactInformation = contact;
-            wizard.ChargeTypes = new ChargeTypesWizard(contact.StableType);
+            if (wizard.ChargeTypes == null)
+            {
+                wizard.ChargeTypes = new ChargeTypesWizard(contact.StableType);
+            }
             wizard.SaveXml(fileName);
             return wizard;
         }
@@ -97,7 +100,10 @@ namespace EStable.Services
 
             financial.Merge(wizard.FinancialInformation);
             wizard.FinancialInformation = financial;
-            wizard.ChargeTypes = new ChargeTypesWizard(wizard.ContactInformation.StableType);
+            if (wizard.ChargeTypes == null)
+            {
+                wizard.ChargeTypes = new ChargeTypesWizard(wizard.ContactInformation.StableType);
+            }
             wizard.SaveXml(fileName);
             
         }

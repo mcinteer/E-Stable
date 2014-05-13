@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 using System.Xml.Serialization;
 using EStable.Constants;
 using EStable.Helpers;
@@ -95,6 +96,11 @@ namespace EStable.Models.Wizard
         public void AddAnimalOwnership(AnimalOwnership ownership)
         {
             AnimalOwners.AddAnimalOwnership(ownership);
+        }
+
+        public void AddStableCharges(List<StableChargeType> chargeTypes)
+        {
+            ChargeTypes.AddStableChargeTypes(chargeTypes);
         }
     }
 }

@@ -1,44 +1,52 @@
 ﻿.wizard-step-3 {
-    padding-left: 0;
-    padding-top: 2em;
+	padding-left: 0;
+	padding-top: 2em;
    /* padding-right: 10em;*/
-    padding-bottom: 6em;
-    margin: auto;
-    max-width: 730px;
-    min-width: 720px;
+	padding-bottom: 6em;
+	margin: auto;
+	max-width: 730px;
+	min-width: 720px;
 }
 
 #close-standard-charge,
 #close-stable-charge
  {
-    float: left;
+	float: left;
 }
 
 #submit-add-standard-charge,
 #submit-add-stable-charge {
-    float: right;
+	float: right;
 }
 
 #addStableCharge {
-    float: left;
+	float: left;
 }
 
 .file-wrapper {
-    cursor: pointer;
-    display: inline-block;
-    overflow: hidden;
-    position: relative;
-    margin-left: 2em;
+	cursor: pointer;
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	margin-left: 2em;
 }
 
 .file-wrapper input {
-    cursor: pointer;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    filter: alpha(opacity=1);
-    -moz-opacity: 0.01;
-    opacity: 0.01;
-    font-size: 100px;
+	cursor: pointer;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	filter: alpha(opacity=1);
+	-moz-opacity: 0.01;
+	opacity: 0.01;
+	font-size: 100px;
+}
+
+.dont-display{
+	display:none;
+}
+
+.file-upload-wrapper{
+margin-bottom:100px;
 }

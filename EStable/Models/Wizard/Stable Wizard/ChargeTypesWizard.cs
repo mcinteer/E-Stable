@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web;
 using EStable.Constants;
 
@@ -109,6 +110,11 @@ namespace EStable.Models.Wizard
         public void AddStandardChargeType(StandardCharge standardCharge)
         {
             StandardChargeTypes.Add(standardCharge);
+        }
+
+        public void AddStableChargeTypes(List<StableChargeType> chargeTypes)
+        {
+            chargeTypes.ForEach(AddStableChargeType);
         }
     }
 }

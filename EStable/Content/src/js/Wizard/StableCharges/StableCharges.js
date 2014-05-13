@@ -8,7 +8,10 @@ SITE.fileInputs = function () {
         $button = $this.siblings('.button'),
         $fakeFile = $this.siblings('.file-holder');
     if (newVal !== '') {
-        $button.text('Confirm Import');
+        $button.removeClass('btn-info');
+        $button.addClass('btn-default');
+        $('#confirmImportButton').removeClass('dont-display');
+        $('#importStableChargeFilePath').val = newVal;
         if ($fakeFile.length === 0) {
             $button.after('<span class="file-holder">' + newVal + '</span>');
         } else {
@@ -17,9 +20,36 @@ SITE.fileInputs = function () {
     }
 };
 
+SITE.confirmImport = function() {
+    var dynatable = $('#tblStableCharges').data('dynatable');
+
+    dynatable.processingIndicator.hide();
+    dynatable.processingIndicator.show();
+
+    $.ajax({
+        type: "POST",
+        url: '../../../../../Wizard/ImportStableCharges',
+        data: {
+            path: $('#importStableChargeFilePath').val(),
+            email: $('#email').val()
+        },
+        success: function(data) {
+            dynatable.records.updateFromJson(data);
+            dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records
+            dynatable.process();
+            dynatable.processingIndicator.hide();
+        },
+        error: function(data) {
+        }
+    });
+};
+
 $(document).ready(function () {
     $('.file-wrapper input[type=file]')
         .bind('change focus click', SITE.fileInputs);
+
+    $('#confirmImportButton')
+        .bind('click', SITE.confirmImport);
 });
 
 function createStableChargesTable(data) {

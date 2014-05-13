@@ -8,18 +8,9 @@
     var stableTypeCharges = Model.StableChargeTypes;
 }
 @*Styles*@
-<link href="~/Content/Styles/jquery.dynatable.css" rel="stylesheet" />
-<link href="~/Content/Styles/Wizard/StepThree.css" rel="stylesheet" />
-<link href="~/Content/Styles/Wizard/WizardBase.css" rel="stylesheet" />
-
-@*Javascript Libraries*@
-<script src="~/Content/Javascript/Common/jquery-1.7.2.min.js"></script>
-<script src="~/Content/Javascript/Common/jquery.dynatable.js"></script>
-<script src="~/Content/Javascript/Common/EstableBase.js"></script>
-
-@*Javascript Logic*@
-<script src="~/Content/Javascript/Areas/Wizard/StableCharges/StableCharges.js"></script>
-<script src="~/Content/Javascript/Areas/Wizard/StableCharges/StandardCharges.js"></script>
+<link href="~/Content/dist/css/vendor/jquery.dynatable.min.css" rel="stylesheet" />
+<link href="~/Content/dist/css/Wizard/StepThree.min.css" rel="stylesheet" />
+<link href="~/Content/dist/css/Wizard/WizardBase.min.css" rel="stylesheet" />
 
 <div id="wizardStepCounter" class="wizard-step-counter">
     <img id="wizardStepImage" src="../../Content/Images/WizardSteps.png" />
@@ -65,10 +56,6 @@
 
                         <div>
                             <a href="#" class="btn btn-sm btn-info" id="addStableCharge">Add a Stable Charge</a>
-                            <span class="file-wrapper">
-                                <input type="file" name="importStableCharges" id="importStableCharges" />
-                                <span class="button btn btn-sm btn-info">Import Stable Charges</span>
-                            </span>
                         </div>
                         
                        @* <a href="#" id="importStableCharges" class="btn btn-sm btn-info">Import Stable Charges</a> <input type="file" id="import"/>*@
@@ -114,6 +101,15 @@
                 </div>
             </div>
         }
+        <div class="file-upload-wrapper">
+            @using (Html.BeginForm("ImportStableCharges", "Wizard", FormMethod.Post, new {enctype = "multipart/form-data"}))
+            {
+                <input type="hidden" name="email" id="email" value="@Model.Email"/>
+                <input type="file" name="file" />
+                <input type="submit" class="button btn btn-sm btn-primary" name="Submit" id="Submit" value="Submit"/>
+            }
+        </div>
+        
     </div>
 </div>
 
