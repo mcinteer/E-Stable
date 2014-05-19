@@ -46,7 +46,7 @@
                     
                         </div>
                         
-                        <script type="text/html" id="data">@Model.GetStableChargeTypesJson()</script>
+                        <script type="text/html" id="stableChargeData">@Model.GetStableChargeTypesJson()</script>
                        
                         
                         @Html.Partial("Partials/_AddStableChargeForm", new StableChargeTypeViewModel())
@@ -76,11 +76,7 @@
                             </table>    
                     
                         </div>
-                        <script type="text/javascript">
-                            createStandardChargesTable('@Model.GetStandardChargeTypesJson()');
-
-                        </script>
-                        
+                        <script type="text/html" id="standardChargeData">@Model.GetStandardChargeTypesJson()</script>
                         @Html.Partial("Partials/_AddStandardChargeForm", new StandardChargeTypeViewModel())
                         
                         <a href="#" class="btn btn-sm btn-info" id="addStandardCharge">Add a Standard Charge</a>
@@ -104,10 +100,28 @@
             @using (Html.BeginForm("ImportStableCharges", "Wizard", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
                 <input type="hidden" name="email" id="email" value="@Model.Email"/>
-                <input type="file" name="file" />
-                <input type="submit" class="button btn btn-sm btn-primary" name="Submit" id="Submit" value="Submit"/>
+                <div class="stable-charge-upload-wrapper">
+                    <div id="upload-file-container" class="button btn btn-sm btn btn-info pointer">
+                        <input type="file" id="stableChargeUpload" class="upload" name="file" value="test">
+                    </div>
+                    <input type="submit" class="button btn btn-sm btn-primary" name="Submit" id="Submit" value="Import Stable Charges"/>
+                </div>
             }
         </div>
+
+        <div class="file-upload-wrapper">
+            @using (Html.BeginForm("ImportStandardCharges", "Wizard", FormMethod.Post, new {enctype = "multipart/form-data"}))
+            {
+                <input type="hidden" name="email" id="email" value="@Model.Email"/>
+                <div class="standard-charge-upload-wrapper">
+                    <div id="upload-file-container" class="button btn btn-sm btn btn-info pointer">
+                    <input type="file" id="standardChargeUpload" class="upload" name="file" value="test">
+                </div>
+                <input type="submit" class="button btn btn-sm btn-primary" name="Submit" id="Submit" value="Import Standard Charges"/>
+                </div>
+            }
+        </div>
+        
         
     </div>
 </div>

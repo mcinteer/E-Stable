@@ -1,6 +1,6 @@
 ﻿$(function() {
 
-    var StableCharges = {
+    var stableCharges = {
         
         createStableChargesTable : function(data) {
             $('#tblStableCharges').dynatable({
@@ -43,7 +43,7 @@
     function setupEventListeners() {
         $("#addStableCharge").live('click', function () {
             if ($(this).hasClass("selected")) {
-                deselectStableCharge();
+                stableCharges.deselectStableCharge();
             } else {
                 $(this).addClass("selected");
                 $(".pop-stable-charge").slideFadeToggle(function () {
@@ -52,9 +52,9 @@
             }
             return false;
         });
-
+        
         $("#close-stable-charge").live('click', function () {
-            deselectStableCharge();
+            stableCharges.deselectStableCharge();
             return false;
         });
 
@@ -85,12 +85,12 @@
         });
     }
     
-    if (!$('#data').length) {
+    if (!$('#stableChargeData').length) {
         console.warn('You need to define your data Ryan!');
         return;
     }
 
     setupEventListeners();
-    var pageData = htmlDecode($('#data').html());
-    StableCharges.createStableChargesTable(JSON.parse(pageData));
+    var stableChargeData = htmlDecode($('#stableChargeData').html());
+    stableCharges.createStableChargesTable(JSON.parse(stableChargeData));
 });

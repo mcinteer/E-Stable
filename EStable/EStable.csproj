@@ -161,6 +161,7 @@
     <Compile Include="Helpers\XmlSerializationHelper.cs" />
     <Compile Include="Identity\UserOfStableIdentity.cs" />
     <Compile Include="Importers\StableChargeImporter.cs" />
+    <Compile Include="Importers\StandardChargeImporter.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Stable.cs" />
     <Compile Include="Models\Wizard\Stable Wizard\AnimalDetailsWizardBase.cs" />

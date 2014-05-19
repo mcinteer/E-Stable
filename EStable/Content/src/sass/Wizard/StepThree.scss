@@ -47,6 +47,22 @@
 	display:none;
 }
 
-.file-upload-wrapper{
-margin-bottom:100px;
+.upload{
+	cursor: pointer;
+}
+
+.pointer{
+	cursor:pointer;
+}
+
+.stable-charge-upload-wrapper{
+	position: absolute;
+	bottom:723px;
+	left:885px;
+}
+
+.standard-charge-upload-wrapper{
+	position: absolute;
+	bottom:99px;
+	left:875px;
 }
