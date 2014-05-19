@@ -424,6 +424,14 @@ namespace EStable.Controllers
             return View("StableTypeChargesStepThree", viewModel);
         }
 
+        public ActionResult ImportStandardCharges(string email)
+        {
+            var chargeTypes = _standardChargeTypeBouncer.ImportStandardCharges(Request.Files[0], email);
+            chargeTypes.Email = email;
+            var viewModel = _chargeTypeViewModelFactory.ToViewModel(chargeTypes);
+            return View("StableTypeChargesStepThree", viewModel);
+        }
+
         public JsonResult SaveStandardCharge(string description, string rate, string email)
         {
             List<StandardChargeTypeViewModel> charges = _standardChargeTypeBouncer.SaveStandardCharge(description, rate, email);
@@ -469,7 +477,5 @@ namespace EStable.Controllers
                         }
                 };
         }
-
-        
     }
 }

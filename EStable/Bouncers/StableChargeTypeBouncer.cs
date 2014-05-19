@@ -13,7 +13,7 @@ namespace EStable.Bouncers
     public interface IStableChargeTypeBouncer
     {
         List<StableChargeTypeViewModel> SaveStableCharge(string unit, string instable, string description, string rate, string email);
-        ChargeTypesWizard ImportStableCharges(HttpPostedFileBase path, string email);
+        ChargeTypesWizard ImportStableCharges(HttpPostedFileBase file, string email);
     }
 
     public class StableChargeTypeBouncer : IStableChargeTypeBouncer
@@ -27,9 +27,9 @@ namespace EStable.Bouncers
             return _service.SaveStableCharge(unit, instable, description, rate, email);
         }
 
-        public ChargeTypesWizard ImportStableCharges(HttpPostedFileBase path, string email)
+        public ChargeTypesWizard ImportStableCharges(HttpPostedFileBase file, string email)
         {
-            return _service.ImportStableCharges(path, email);
+            return _service.ImportStableCharges(file, email);
         }
     }
 }

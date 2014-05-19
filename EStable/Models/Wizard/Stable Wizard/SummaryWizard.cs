@@ -102,5 +102,10 @@ namespace EStable.Models.Wizard
         {
             ChargeTypes.AddStableChargeTypes(chargeTypes);
         }
+
+        public void AddStandardCharges(List<StandardCharge> chargeTypes)
+        {
+            ChargeTypes.AddStandardChargeTypes(chargeTypes);
+        }
     }
 }

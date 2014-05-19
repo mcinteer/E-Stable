@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
-    notify = require('gulp-notify'),
+    //notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload');
 
@@ -21,7 +21,7 @@ gulp.task('styles', function () {
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
     .pipe(gulp.dest('dist/css'))
-    .pipe(notify({ message: 'Styles task complete' }));
+    //.pipe(notify({ message: 'Styles task complete' }));
 });
 
 gulp.task('scripts', function() {
@@ -31,7 +31,7 @@ gulp.task('scripts', function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
-    .pipe(notify({ message: 'Scripts task complete' }));
+    //.pipe(notify({ message: 'Scripts task complete' }));
 });
 
 gulp.task('clean', function() {

@@ -116,5 +116,10 @@ namespace EStable.Models.Wizard
         {
             chargeTypes.ForEach(AddStableChargeType);
         }
+
+        public void AddStandardChargeTypes(List<StandardCharge> chargeTypes)
+        {
+            chargeTypes.ForEach(AddStandardChargeType);
+        }
     }
 }
