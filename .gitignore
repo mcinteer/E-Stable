@@ -118,4 +118,4 @@ docs/styleguide/*
 
 #Sprites
 img/*-*.png
-web.config
+#web.config
