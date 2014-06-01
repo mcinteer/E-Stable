@@ -39,7 +39,7 @@ namespace EStable.Models.Wizard
 
         public string Jurisdiction { get; set; }
 
-        public string StableName { get; set; }
+        public new string StableName { get; set; }
 
         public string Trainer { get; set; }
 

@@ -218,10 +218,8 @@ namespace EStable.Controllers
             {
                 case "Next":
                     return GetStepThree(email);
-                    break;
                 case "Back":
                     return GetStepOne(email);
-                    break;
                 default:
                     throw new Exception("Invalid form submission, please select either back or next");
             }
@@ -238,10 +236,8 @@ namespace EStable.Controllers
             {
                 case "Next":
                     return GetStepFour(email);
-                    break;
                 case "Back":
                     return GetStepTwo(email);
-                    break;
                 default:
                     throw new Exception("Invalid form submission, please select either back or next");
             }
@@ -253,10 +249,8 @@ namespace EStable.Controllers
             {
                 case "Next":
                     return GetStepFive(email);
-                    break;
                 case "Back":
                     return GetStepThree(email);
-                    break;
                 default:
                     throw new Exception("Invalid form submission, please select either back or next");
             }
@@ -268,10 +262,8 @@ namespace EStable.Controllers
             {
                 case "Next":
                     return GetStepSix(email);
-                    break;
                 case "Back":
                     return GetStepFour(email);
-                    break;
                 default:
                     throw new Exception("Invalid form submission, please select either back or next");
             }
@@ -285,10 +277,8 @@ namespace EStable.Controllers
             {
                 case "Provision Stable":
                     return GetStepFive(email);
-                    break;
                 case "Back":
                     return GetStepFive(email);
-                    break;
                 default:
                     throw new Exception("Invalid form submission, please select either back or next");
             }
@@ -305,10 +295,8 @@ namespace EStable.Controllers
             {
                 case "Next":
                     return GetStepEight();
-                    break;
                 case "Back":
                     return GetStepSix(email);
-                    break;
                 default:
                     throw new Exception("Invalid form submission, please select either back or next");
             }

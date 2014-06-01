@@ -61,7 +61,7 @@ namespace EStable.Services
             {
                 wizard = XmlSerializationHelper.Deserialize<SummaryWizard>(path);
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
                 wizard = new SummaryWizard();
                 var newFileName = Guid.NewGuid().ToString();
