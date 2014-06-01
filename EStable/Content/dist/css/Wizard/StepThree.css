@@ -1,0 +1,67 @@
+.wizard-step-3 {
+  padding-left: 0;
+  padding-top: 2em;
+  /* padding-right: 10em;*/
+  padding-bottom: 6em;
+  margin: auto;
+  max-width: 730px;
+  min-width: 720px;
+}
+
+#close-standard-charge,
+#close-stable-charge {
+  float: left;
+}
+
+#submit-add-standard-charge,
+#submit-add-stable-charge {
+  float: right;
+}
+
+#addStableCharge {
+  float: left;
+}
+
+.file-wrapper {
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  margin-left: 2em;
+}
+
+.file-wrapper input {
+  cursor: pointer;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  filter: alpha(opacity=1);
+  -moz-opacity: 0.01;
+  opacity: 0.01;
+  font-size: 100px;
+}
+
+.dont-display {
+  display: none;
+}
+
+.upload {
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.stable-charge-upload-wrapper {
+  position: absolute;
+  bottom: 723px;
+  left: 885px;
+}
+
+.standard-charge-upload-wrapper {
+  position: absolute;
+  bottom: 99px;
+  left: 875px;
+}

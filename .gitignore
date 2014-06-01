@@ -109,7 +109,7 @@ Desktop.ini
 *.idea
 
 #Compiled files
-dist
+#dist
 docs/api/*
 docs/styleguide/*
 

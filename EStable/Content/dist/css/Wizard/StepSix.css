@@ -1,0 +1,59 @@
+.wizard-step-6 {
+  padding-left: 0;
+  padding-top: 2em;
+  /* padding-right: 10em;*/
+  padding-bottom: 6em;
+  margin: auto;
+  /*max-width: 730px;*/
+  min-width: 720px;
+}
+
+.stable-name-title {
+  color: blue;
+  font-size: 1.75em;
+}
+
+.stable-name-container {
+  clear: both;
+  display: inline;
+}
+
+.contact-data {
+  width: 40%;
+  float: left;
+}
+
+.financial-data {
+  width: 40%;
+  float: right;
+}
+
+.stable-charge-types {
+  float: left;
+  width: 59%;
+  clear: both;
+}
+
+.standard-charge-types {
+  float: right;
+  width: 40%;
+}
+
+.owner-data {
+  width: 30%;
+}
+
+.spacer {
+  padding-top: 3em;
+}
+
+.animal-details {
+  float: left;
+  clear: both;
+  width: 59%;
+}
+
+.owner-data {
+  width: 40%;
+  float: right;
+}
