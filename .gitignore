@@ -32,7 +32,7 @@ TestResults
 *.tmp
 *.vspscc
 .builds
-*.dll
+#*.dll
 
 # Visual C++ cache files
 ipch/
