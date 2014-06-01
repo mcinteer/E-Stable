@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MySql.Data.MySqlClient;
-
-namespace EStable.Constants
+﻿namespace EStable.Constants
 {
     public static class Codes
     {
