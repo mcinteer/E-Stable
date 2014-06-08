@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using EStable.Bouncers;
 using EStable.Constants;
 using EStable.Domain;
-using EStable.Helpers;
-using EStable.Models;
 using EStable.Models.Wizard;
 using EStable.Services;
-using EStable.ViewModels.UserOfStableViewModels.Wizard;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.Factories;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.StepFive;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.StepFour;
@@ -19,7 +14,6 @@ using EStable.ViewModels.UserOfStableViewModels.Wizard.StepOne;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.StepThree;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.StepTwo;
 using EStable.ViewModels.UserOfStableViewModels.Wizard.Step_Six;
-using LumenWorks.Framework.IO.Csv;
 
 namespace EStable.Controllers
 {
