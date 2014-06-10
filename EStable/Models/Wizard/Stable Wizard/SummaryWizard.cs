@@ -74,8 +74,8 @@ namespace EStable.Models.Wizard
 
         public void SaveXml(string fileName)
         {
-            var path = Codes.FilePaths.WizardXml + fileName + ".xml";
-            XmlSerializationHelper.SerializeAndSave(path, this);
+            fileName += ".xml";
+            XmlSerializationHelper.SerializeAndSave(fileName, this);
         }
 
         public void AddStableCharge(StableChargeType stableChargeType)

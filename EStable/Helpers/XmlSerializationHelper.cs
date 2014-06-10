@@ -1,30 +1,47 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml.Serialization;
+using EStable.Constants;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace EStable.Helpers
 {
     public class XmlSerializationHelper
     {
-        public static void SerializeAndSave<T>(string filename, T obj)
+        public static void SerializeAndSave<T>(string fileName, T obj)
         {
-            var path = filename.Substring(0, filename.LastIndexOf('\\'));
-            var isExists = Directory.Exists(path);
+            var blob = GetBlockBlob(fileName);
+            var xs = new XmlSerializer(typeof (T));
 
-            if (!isExists)
+            using (var stream = new MemoryStream())
             {
-                Directory.CreateDirectory(path);
+                xs.Serialize(stream, obj);
+                stream.Position = 0;
+                blob.UploadFromStream(stream);
             }
+        }
 
-            var xs = new XmlSerializer(typeof(T));
-            using (var wr = new StreamWriter(filename))
-            {
-                xs.Serialize(wr, obj);
-            }
+        private static CloudBlockBlob GetBlockBlob(string filename)
+        {
+            var container = GetContainer();
+            return container.GetBlockBlobReference(filename);
+        }
+
+        private static CloudBlobContainer GetContainer()
+        {
+            var account =
+                CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting(Codes.Azure.Storage.ConnectionStringName));
+            var blobClient = account.CreateCloudBlobClient();
+            var container = blobClient.GetContainerReference(Codes.Azure.Storage.ContainerNames.StableWizard);
+            container.CreateIfNotExists();
+            return container;
         }
 
         public static string Serialize<T>(T obj)
         {
-            var xs = new XmlSerializer(typeof(T));
+            var xs = new XmlSerializer(typeof (T));
 
             using (var wr = new StringWriter())
             {
@@ -33,12 +50,23 @@ namespace EStable.Helpers
             }
         }
 
-        public static T Deserialize<T>(string filename)
+        public static T Deserialize<T>(string fileName)
         {
-            var xs = new XmlSerializer(typeof(T));
-            using (var rd = new StreamReader(filename))
+            var blob = GetBlockBlob(fileName);
+            var xs = new XmlSerializer(typeof (T));
+
+            using (var stream = new MemoryStream())
             {
-                return (T)xs.Deserialize(rd);
+                try
+                {
+                    blob.DownloadToStream(stream);
+                    stream.Position = 0;
+                    return (T) xs.Deserialize(stream);
+                }
+                catch (Exception ex)
+                {
+                    throw new FileNotFoundException();
+                }
             }
         }
     }

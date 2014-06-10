@@ -32,7 +32,7 @@ TestResults
 *.tmp
 *.vspscc
 .builds
-*.dll
+#*.dll
 
 # Visual C++ cache files
 ipch/
@@ -109,7 +109,7 @@ Desktop.ini
 *.idea
 
 #Compiled files
-dist
+#dist
 docs/api/*
 docs/styleguide/*
 
@@ -118,4 +118,4 @@ docs/styleguide/*
 
 #Sprites
 img/*-*.png
-web.config
+#web.config

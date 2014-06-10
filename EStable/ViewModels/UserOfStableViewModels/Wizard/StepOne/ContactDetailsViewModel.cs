@@ -47,7 +47,7 @@ namespace EStable.ViewModels.UserOfStableViewModels.Wizard.StepOne
 
         public IEnumerable<string> PossibleStableType { get; set; }
 
-        public bool IsValid { get; set; }
+        public new bool IsValid { get; set; }
 
         public void InitializePossibleStableType()
         {

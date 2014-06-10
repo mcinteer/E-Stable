@@ -55,13 +55,13 @@ namespace EStable.Services
 
         public SummaryWizard GetWizardByFileName(string fileName, string email)
         {
-            var path = Codes.FilePaths.WizardXml + fileName + ".xml";
+            fileName += ".xml";
             SummaryWizard wizard;
             try
             {
-                wizard = XmlSerializationHelper.Deserialize<SummaryWizard>(path);
+                wizard = XmlSerializationHelper.Deserialize<SummaryWizard>(fileName);
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
                 wizard = new SummaryWizard();
                 var newFileName = Guid.NewGuid().ToString();

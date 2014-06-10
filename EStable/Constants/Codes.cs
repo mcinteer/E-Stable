@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MySql.Data.MySqlClient;
-
-namespace EStable.Constants
+﻿namespace EStable.Constants
 {
     public static class Codes
     {
+        public static class Azure
+        {
+            public static class Storage
+            {
+                public const string ConnectionStringName = "StorageConnectionString";
+                public class ContainerNames
+                {
+                    public const string StableWizard = "stable-wizard-xml-files";
+                }
+            }
+        }
         public static class FilePaths
         {
-            public const string WizardXml = @"c:\xml\wizard\";
+            public const string WizardXml = @"stablewizard\";
         }
 
         public static class Cookies

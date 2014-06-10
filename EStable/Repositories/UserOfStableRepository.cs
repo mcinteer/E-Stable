@@ -65,17 +65,17 @@ namespace EStable.Repositories
                         if (reader.Read())
                         {
                             try{userOfStable.UserId = reader.GetInt32(0);}
-                            catch (Exception ex){}
+                            catch (Exception){}
                             try{userOfStable.Email = reader.GetString(1);}
-                            catch (Exception ex){}
+                            catch (Exception){}
                             try{userOfStable.Password = reader.GetString(2);}
-                            catch (Exception ex){}
+                            catch (Exception){}
                             try{userOfStable.Active = reader.GetString(3);}
-                            catch (Exception ex){}
+                            catch (Exception){}
                             try{userOfStable.ForcePWChange = reader.GetString(4);}
-                            catch (Exception ex){} 
+                            catch (Exception){} 
                             try{userOfStable.LastAccessedStableId = reader.GetInt32(5);}
-                            catch (Exception ex){}
+                            catch (Exception){}
                             
                         }
                         else
