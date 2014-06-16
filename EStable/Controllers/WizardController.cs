@@ -382,7 +382,24 @@ namespace EStable.Controllers
 
         public JsonResult SaveStableCharge(string unit, string instable, string description, string rate, string email)
         {
-            var charges = _stableChargeTypeBouncer.SaveStableCharge(unit, instable, description, rate, email);
+            var charges = _stableChargeTypeBouncer.SaveNewStableCharge(unit, instable, description, rate, email);
+            return GetStableChargeJson(charges);
+        }
+
+        
+        
+        [HttpPost]
+        public JsonResult SaveStableChargeUnitAmount(string unit, string id, string email)
+        {
+
+            var charges = _stableChargeTypeBouncer.UpdateStableChargeUnit(id, unit, email);
+            return GetStableChargeJson(charges);
+        }
+
+        [HttpPost]
+        public JsonResult SaveStableChargeInStableValue(string id, string instable, string email)
+        {
+            var charges = _stableChargeTypeBouncer.UpdateStableChargeInstable(id, instable, email);
             return GetStableChargeJson(charges);
         }
 

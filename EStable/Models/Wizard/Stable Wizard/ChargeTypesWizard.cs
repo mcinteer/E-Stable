@@ -104,11 +104,13 @@ namespace EStable.Models.Wizard
 
         public void AddStableChargeType(StableChargeType stableChargeType)
         {
+            stableChargeType.StableChargeTypeId = StableChargeTypes.Count;
             StableChargeTypes.Add(stableChargeType);
         }
 
         public void AddStandardChargeType(StandardCharge standardCharge)
         {
+            standardCharge.StandardChargeId = StableChargeTypes.Count;
             StandardChargeTypes.Add(standardCharge);
         }
 
@@ -120,6 +122,32 @@ namespace EStable.Models.Wizard
         public void AddStandardChargeTypes(List<StandardCharge> chargeTypes)
         {
             chargeTypes.ForEach(AddStandardChargeType);
+        }
+
+        public void SaveStableChargeTypeUnit(string id, string unit)
+        {
+            var charge = StableChargeTypes.SingleOrDefault(ch => ch.StableChargeTypeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.ChargingUnit = unit;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SaveStableChargeTypeInstable(string id, string instable)
+        {
+            var charge = StableChargeTypes.SingleOrDefault(ch => ch.StableChargeTypeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.InStable = instable == "yes";
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

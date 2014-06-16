@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
+    streamqueue = require('streamqueue'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
@@ -24,8 +25,21 @@ gulp.task('styles', function () {
     //.pipe(notify({ message: 'Styles task complete' }));
 });
 
-gulp.task('scripts', function() {
-  return gulp.src('src/js/**/*.js')
+gulp.task('scripts', function () {
+    var stream = streamqueue({ objectMode: true });
+
+//    stream.queue(Fs.createReadStream('jquery.min.js
+
+
+
+    stream.queue(gulp.src([ 'src/js/vendor/jquery.min.js',
+                            'src/js/vendor/bootstrap.js',
+                            'src/js/vendor/bootstrap-editable.js',
+                            'src/js/vendor/jquery.dynatable.js',
+                            'src/js/Wizard/**/*.js']));
+
+
+  return stream.done()
     .pipe(concat('EstableBase.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(rename({suffix: '.min'}))

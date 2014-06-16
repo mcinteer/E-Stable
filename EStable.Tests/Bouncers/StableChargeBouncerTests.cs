@@ -30,7 +30,7 @@ namespace EStable.Tests.Bouncers
             var expectedException = new NotAuthorizedToAddChargeTypeException();
 
             Assert.Throws<NotAuthorizedToAddChargeTypeException>(() => 
-                _bouncer.SaveStableCharge(null, null, null, null, email));
+                _bouncer.SaveNewStableCharge(null, null, null, null, email));
         }
     }
 }

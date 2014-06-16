@@ -15,6 +15,8 @@ namespace EStable.Services
     {
         List<StableChargeTypeViewModel> SaveStableCharge(string unit, string instable, string description, string rate, string email);
         ChargeTypesWizard ImportStableCharges(HttpPostedFileBase file, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeUnit(string id, string unit, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, string instable, string email);
     }
 
     public class StableChargeTypeService : IStableChargeTypeService
@@ -42,6 +44,24 @@ namespace EStable.Services
 
             SaveXml(email, wizard);
             return wizard.ChargeTypes;
+        }
+
+        public List<StableChargeTypeViewModel> UpdateStableChargeUnit(string id, string unit, string email)
+        {
+            var wizard = _wizardService.GetWizard(email);
+
+                wizard.SaveStableChargeTypeUnit(id, unit);
+            
+            return SaveXmlAndGetViewModel(email, wizard);
+        }
+
+        public List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, string instable, string email)
+        {
+            var wizard = _wizardService.GetWizard(email);
+
+            wizard.SaveStableChargeTypeInStable(id, instable);
+
+            return SaveXmlAndGetViewModel(email, wizard);
         }
 
         private List<StableChargeTypeViewModel> SaveXmlAndGetViewModel(string email, SummaryWizard wizard)
