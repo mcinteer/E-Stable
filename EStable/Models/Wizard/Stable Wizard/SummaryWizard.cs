@@ -113,9 +113,19 @@ namespace EStable.Models.Wizard
             ChargeTypes.SaveStableChargeTypeUnit(id, unit);
         }
 
-        public void SaveStableChargeTypeInStable(string id, string instable)
+        public void SaveStableChargeTypeInStable(string id, bool instable)
         {
             ChargeTypes.SaveStableChargeTypeInstable(id, instable);
+        }
+
+        public void SaveStableChargeTypeDescription(string id, string description)
+        {
+            ChargeTypes.SaveStableChargeTypeDescription(id, description);
+        }
+
+        public void SaveStableChargeTypeChargeRate(string id, string rate)
+        {
+            ChargeTypes.SaveStableChargeTypeChargeRate(id, rate);
         }
     }
 }

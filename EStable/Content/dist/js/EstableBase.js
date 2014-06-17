@@ -10521,6 +10521,67 @@ Automatically shown in inline mode.
 
 })(jQuery);
 
+﻿$(function() {
+
+    function decode(encoded) {
+        if (encoded == null) {
+            return encoded;
+        }
+        var div = document.createElement('div');
+        div.innerHTML = encoded;
+        var test = div.firstChild.nodeValue;
+        return JSON.parse(test);
+    }
+
+    $.fn.slideFadeToggle = function(easing, callback) {
+        return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
+    };
+    
+    $.fn.setupInputs = function(tableId, postUrl, selectOptions) {
+
+        tableId = tableId || '#tblStableCharges';
+        postUrl = postUrl || '../../../../../Wizard/SaveStableChargeInStableValue';
+
+        $(tableId + ' th').each(function(index, th) {
+            addEditableInput(this.getAttribute('inputtype'), this.getAttribute('data-dynatable-column'));
+        });
+        
+        function addEditableInput(inputType, columnName) {
+
+            $(tableId + ' *[data-columnname="' + columnName + '"]').editable({
+                name: columnName,
+                type: inputType,
+                source: selectOptions[columnName],
+                url: function (record) {
+                    var dynatable = $(tableId).data('dynatable');
+
+                    dynatable.processingIndicator.hide();
+                    dynatable.processingIndicator.show();
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: postUrl,
+                        data: {
+                            id: record.pk,
+                            columnName: columnName,
+                            email: $('#email').val(),
+                            updatedValue: record.value
+                        },
+                        success: function (data) {
+                            dynatable.records.updateFromJson(data);
+                            dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records;
+                            dynatable.process();
+                            dynatable.processingIndicator.hide();
+                            $.fn.setupInputs(tableId, postUrl, selectOptions);
+                        },
+                        error: function (data) {
+                        }
+                    });
+                }
+            });
+        }
+    }
+});
 ﻿function createAnimalTable(data) {
     $('#tblAnimal').dynatable({
         dataset: {
@@ -10674,10 +10735,21 @@ function setupSubmitAddOwnerClickEvent(tableID) {
     });
 }
 ﻿$(function() {
-
-    var stableCharges = {
-        
-        createStableChargesTable : function(data) {
+    var selectOptions = {
+        'Unit': [
+            { value: 'Daily', text: 'Daily' },
+            { value: 'Weekly', text: 'Weekly' },
+            { value: 'Monthly', text: 'Monthly' },
+            { value: 'Yearly', text: 'Yearly' }
+        ],
+        'InStable': [
+            { value: true, text: 'Yes' },
+            { value: false, text: 'No' }
+        ]
+    };
+    
+    var stableCharges = {        
+        createStableChargesTable: function(data) {
             $('#tblStableCharges').dynatable({
                 dataset: {
                     records: data
@@ -10692,15 +10764,14 @@ function setupSubmitAddOwnerClickEvent(tableID) {
                     _cellWriter: estableEditableCellWriter,
                     _rowWriter: estableEditableRowWriter
                 }
-            }); 
+            });
         },
-        
+
         deselectStableCharge: function() {
-            $(".pop-stable-charge").slideFadeToggle(function () {
+            $(".pop-stable-charge").slideFadeToggle(function() {
                 $("#addStableCharge").removeClass("selected");
-            });    
-        }
-        
+            });
+        }        
     };
 
     function htmlEncode(value) {
@@ -10720,24 +10791,24 @@ function setupSubmitAddOwnerClickEvent(tableID) {
     }
 
     function setupEventListeners() {
-        $("#addStableCharge").live('click', function () {
+        $("#addStableCharge").live('click', function() {
             if ($(this).hasClass("selected")) {
                 stableCharges.deselectStableCharge();
             } else {
                 $(this).addClass("selected");
-                $(".pop-stable-charge").slideFadeToggle(function () {
+                $(".pop-stable-charge").slideFadeToggle(function() {
                     $("#stbl-unit").focus();
                 });
             }
             return false;
         });
-        
-        $("#close-stable-charge").live('click', function () {
+
+        $("#close-stable-charge").live('click', function() {
             stableCharges.deselectStableCharge();
             return false;
         });
 
-        $('#submit-add-stable-charge').live('click', function () {
+        $('#submit-add-stable-charge').live('click', function() {
             var dynatable = $('#tblStableCharges').data('dynatable');
 
             dynatable.processingIndicator.hide();
@@ -10752,19 +10823,19 @@ function setupSubmitAddOwnerClickEvent(tableID) {
                     rate: $('#stbl-rate').val(),
                     email: $('#email').val()
                 },
-                success: function (data) {
+                success: function(data) {
                     dynatable.records.updateFromJson(data);
                     dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records;
                     dynatable.process();
                     dynatable.processingIndicator.hide();
-                    setupInputs();
+                    $.fn.setupInputs('#tblStableCharges', '../../../../../Wizard/UpdateStableCharge', selectOptions);
                 },
-                error: function (data) {
+                error: function(data) {
                 }
             });
         });
     }
-    
+
     function estableEditableRowWriter(rowIndex, record, columns, cellWriter) {
         var tr = '';
 
@@ -10774,11 +10845,13 @@ function setupSubmitAddOwnerClickEvent(tableID) {
         }
 
         return '<tr>' + tr + '</tr>';
-    };
+    }
+
+    ;
 
     function estableEditableCellWriter(column, record) {
         var html = column.attributeWriter(record),
-        td = '<td';
+            td = '<td';
 
         if (column.hidden || column.textAlign) {
             td += ' style="';
@@ -10792,95 +10865,34 @@ function setupSubmitAddOwnerClickEvent(tableID) {
             if (column.textAlign) {
                 td += 'text-align: ' + column.textAlign + ';';
             }
-            
+
             td += '"';
         }
         
-        html = '<a href="#" class="' + column.inputType + '" old-value="' + html + '" data-pk="' + record.Id + '" data-type="select" data-title="Select status">' + html + '</a>';
+        var val = html;
+
+        if (column.inputType === 'select') {
+            var options = selectOptions[column.id];
+            var found = false;
+
+            for (var i = 0; i < options.length && !found; i++) {
+                if (options[i].value == val) {
+                    val = options[i].text;
+                    found = true;
+                }
+            }
+        }
+
+        html = '<a href="#" class="' + column.inputType + '" data-value="' + html + '" old-value="' + html + '" data-pk="' + record.Id + '" data-columnname="' + column.id + '" data-type="' + column.inputType + '" data-title="Select status">' + val + '</a>';
 
         return td + '>' + html + '</td>';
     }
 
-    function setupInputs() {
-        setupUnitInputs();
-        setupInStableInputs();
-    }
-
-    function setupInStableInputs() {
-        $('#tblStableCharges .radio').editable({
-            name: 'instable',
-            type: 'select',
-            source: [
-                { value: 'yes', text: 'Yes' },
-                { value: 'no', text: 'No' }
-            ],
-            url: function (record) {
-                var dynatable = $('#tblStableCharges').data('dynatable');
-
-                dynatable.processingIndicator.hide();
-                dynatable.processingIndicator.show();
-
-                $.ajax({
-                    type: "POST",
-                    url: '../../../../../Wizard/SaveStableChargeInStableValue',
-                    data: {
-                        instable: record.value,
-                        id: record.pk,
-                        email: $('#email').val()
-                    },
-                    success: function (data) {
-                        dynatable.records.updateFromJson(data);
-                        dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records;
-                        dynatable.process();
-                        dynatable.processingIndicator.hide();
-                        setupInputs();
-                    },
-                    error: function (data) {
-                    }
-                });
-            }
-        });
+    function setupStableChargeInputs() {
+        
+        $.fn.setupInputs('#tblStableCharges', '../../../../../Wizard/UpdateStableCharge', selectOptions);
     }
     
-
-    function setupUnitInputs() {
-        $('#tblStableCharges .select').editable({
-            name: 'unit',
-            type: 'select',
-            source: [
-                { value: 'Daily', text: 'Daily' },
-                { value: 'Weekly', text: 'Weekly' },
-                { value: 'Monthly', text: 'Monthly' },
-                { value: 'Yearly', text: 'Yearly' }
-            ],
-            url: function (record) {
-                var dynatable = $('#tblStableCharges').data('dynatable');
-
-                dynatable.processingIndicator.hide();
-                dynatable.processingIndicator.show();
-                
-                $.ajax({
-                    type: "POST",
-                    url: '../../../../../Wizard/SaveStableChargeUnitAmount',
-                    data: {
-                        unit: record.value,
-                        id: record.pk,
-                        email: $('#email').val()
-                    },
-                    success: function (data) {
-                        dynatable.records.updateFromJson(data);
-                        dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records;
-                        dynatable.process();
-                        dynatable.processingIndicator.hide();
-                        setupInputs();
-                    },
-                    error: function (data) {
-                    }
-                });
-            }
-        });
-    }
-
     if (!$('#stableChargeData').length) {
         console.warn('You need to define your data Ryan!');
         return;
@@ -10894,9 +10906,7 @@ function setupSubmitAddOwnerClickEvent(tableID) {
     var stableChargeData = htmlDecode($('#stableChargeData').html());
     stableCharges.createStableChargesTable(JSON.parse(stableChargeData));
     $.fn.editable.defaults.mode = 'inline';
-    setupInputs();
-
-
+    setupStableChargeInputs();
 });
 ﻿$(function() {
 

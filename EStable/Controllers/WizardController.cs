@@ -386,20 +386,34 @@ namespace EStable.Controllers
             return GetStableChargeJson(charges);
         }
 
-        
-        
         [HttpPost]
-        public JsonResult SaveStableChargeUnitAmount(string unit, string id, string email)
+        public JsonResult UpdateStableCharge(string id, string columnName, string updatedValue, string email)
         {
+            List<StableChargeTypeViewModel> charges = null;
+            switch (columnName)
+            {
+                case Codes.StableCharges.Columns.Unit:
+                    charges = _stableChargeTypeBouncer.UpdateStableChargeUnit(id, updatedValue, email);
+                    break;
+                case Codes.StableCharges.Columns.InStable:
+                    bool value;
+                    if (bool.TryParse(updatedValue, out value))
+                    {
+                        charges = _stableChargeTypeBouncer.UpdateStableChargeInstable(id, value, email);
+                    }
+                    else
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                case Codes.StableCharges.Columns.Description:
+                    charges = _stableChargeTypeBouncer.UpdateStableChargeDescription(id, updatedValue, email);
+                    break;
+                case Codes.StableCharges.Columns.Rate:
+                    charges = _stableChargeTypeBouncer.UpdateStableChargeRate(id, updatedValue, email);
+                    break;
+            }
 
-            var charges = _stableChargeTypeBouncer.UpdateStableChargeUnit(id, unit, email);
-            return GetStableChargeJson(charges);
-        }
-
-        [HttpPost]
-        public JsonResult SaveStableChargeInStableValue(string id, string instable, string email)
-        {
-            var charges = _stableChargeTypeBouncer.UpdateStableChargeInstable(id, instable, email);
             return GetStableChargeJson(charges);
         }
 

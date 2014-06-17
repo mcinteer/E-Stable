@@ -15,7 +15,9 @@ namespace EStable.Bouncers
         List<StableChargeTypeViewModel> SaveNewStableCharge(string unit, string instable, string description, string rate, string email);
         ChargeTypesWizard ImportStableCharges(HttpPostedFileBase file, string email);
         List<StableChargeTypeViewModel> UpdateStableChargeUnit(string id, string unit, string email);
-        List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, string instable, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, bool instable, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeDescription(string id, string description, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email);
     }
 
     public class StableChargeTypeBouncer : IStableChargeTypeBouncer
@@ -39,9 +41,19 @@ namespace EStable.Bouncers
             return _service.UpdateStableChargeUnit(id, unit, email);
         }
 
-        public List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, string instable, string email)
+        public List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, bool instable, string email)
         {
             return _service.UpdateStableChargeInstable(id, instable, email);
+        }
+
+        public List<StableChargeTypeViewModel> UpdateStableChargeDescription(string id, string description, string email)
+        {
+            return _service.UpdateStableChargeDescription(id, description, email);
+        }
+
+        public List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email)
+        {
+            return _service.UpdateStableChargeRate(id, rate, email);
         }
     }
 }
