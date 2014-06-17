@@ -2,6 +2,16 @@
 {
     public static class Codes
     {
+        public class StableCharges
+        {
+            public class Columns
+            {
+                public const string Unit = "Unit";
+                public const string InStable = "InStable";
+                public const string Description = "Description";
+                public const string Rate = "Rate";
+            }
+        }
         public static class Azure
         {
             public static class Storage

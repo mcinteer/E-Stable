@@ -383,34 +383,78 @@ namespace EStable.Controllers
         public JsonResult SaveStableCharge(string unit, string instable, string description, string rate, string email)
         {
             var charges = _stableChargeTypeBouncer.SaveNewStableCharge(unit, instable, description, rate, email);
-            return GetStableChargeJson(charges);
-        }
-
-        
-        
-        [HttpPost]
-        public JsonResult SaveStableChargeUnitAmount(string unit, string id, string email)
-        {
-
-            var charges = _stableChargeTypeBouncer.UpdateStableChargeUnit(id, unit, email);
-            return GetStableChargeJson(charges);
+            return GetChargeTypeJson(charges);
         }
 
         [HttpPost]
-        public JsonResult SaveStableChargeInStableValue(string id, string instable, string email)
+        public JsonResult UpdateStableCharge(string id, string columnName, string updatedValue, string email)
         {
-            var charges = _stableChargeTypeBouncer.UpdateStableChargeInstable(id, instable, email);
-            return GetStableChargeJson(charges);
+            List<StableChargeTypeViewModel> charges = null;
+            switch (columnName)
+            {
+                case Codes.StableCharges.Columns.Unit:
+                    charges = _stableChargeTypeBouncer.UpdateStableChargeUnit(id, updatedValue, email);
+                    break;
+                case Codes.StableCharges.Columns.InStable:
+                    bool value;
+                    if (bool.TryParse(updatedValue, out value))
+                    {
+                        charges = _stableChargeTypeBouncer.UpdateStableChargeInstable(id, value, email);
+                    }
+                    else
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                    break;
+                case Codes.StableCharges.Columns.Description:
+                    charges = _stableChargeTypeBouncer.UpdateStableChargeDescription(id, updatedValue, email);
+                    break;
+                case Codes.StableCharges.Columns.Rate:
+                    charges = _stableChargeTypeBouncer.UpdateStableChargeRate(id, updatedValue, email);
+                    break;
+            }
+
+            return GetChargeTypeJson(charges);
         }
 
-        private static JsonResult GetStableChargeJson(List<StableChargeTypeViewModel> charges)
+        
+
+        [HttpPost]
+        public JsonResult UpdateStandardCharge(string id, string columnName, string updatedValue, string email)
+        {
+            ChargeTypesViewModel charges = null;
+            switch (columnName)
+            {
+                case Codes.StableCharges.Columns.Description:
+                    charges = _stableChargeTypeBouncer.UpdateStandardChargeDescription(id, updatedValue, email);
+                    break;
+                case Codes.StableCharges.Columns.Rate:
+                    charges = _stableChargeTypeBouncer.UpdateStandardChargeRate(id, updatedValue, email);
+                    break;
+            }
+
+            return GetStandardChargeTypeJson(charges, charges.StandardChargeTypes.Count);
+        }
+
+        private JsonResult GetChargeTypeJson(List<StableChargeTypeViewModel> charges)
+        {
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    records = charges,
+                    totalRecordCount = charges.Count
+                }
+            };
+        }
+        private static JsonResult GetStandardChargeTypeJson(ChargeTypesViewModel charges, int totalRecordCount)
         {
             return new JsonResult()
                 {
                     Data = new
                         {
-                            records = charges,
-                            totalRecordCount = charges.Count
+                            records = charges.StandardChargeTypes,
+                            totalRecordCount
                         }
                 };
         }

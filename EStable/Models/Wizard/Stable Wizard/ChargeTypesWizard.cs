@@ -137,12 +137,64 @@ namespace EStable.Models.Wizard
             }
         }
 
-        public void SaveStableChargeTypeInstable(string id, string instable)
+        public void SaveStableChargeTypeInstable(string id, bool instable)
         {
             var charge = StableChargeTypes.SingleOrDefault(ch => ch.StableChargeTypeId.ToString() == id);
             if (charge != null)
             {
-                charge.InStable = instable == "yes";
+                charge.InStable = instable;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SaveStableChargeTypeDescription(string id, string description)
+        {
+            var charge = StableChargeTypes.SingleOrDefault(ch => ch.StableChargeTypeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.ChargeType = description;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SaveStableChargeTypeChargeRate(string id, string rate)
+        {
+            var charge = StableChargeTypes.SingleOrDefault(ch => ch.StableChargeTypeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.ChargeRate = rate;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SaveStandardChargeTypeChargeRate(string id, string rate)
+        {
+            var charge = StableChargeTypes.SingleOrDefault(ch => ch.StableChargeTypeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.ChargeRate = rate;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SaveStandardChargeTypeChargeDescription(string id, string description)
+        {
+            var charge = StandardChargeTypes.SingleOrDefault(ch => ch.StandardChargeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.Description = description;
             }
             else
             {

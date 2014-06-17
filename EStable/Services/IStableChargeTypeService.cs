@@ -16,7 +16,11 @@ namespace EStable.Services
         List<StableChargeTypeViewModel> SaveStableCharge(string unit, string instable, string description, string rate, string email);
         ChargeTypesWizard ImportStableCharges(HttpPostedFileBase file, string email);
         List<StableChargeTypeViewModel> UpdateStableChargeUnit(string id, string unit, string email);
-        List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, string instable, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, bool instable, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeDescription(string id, string description, string email);
+        List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email);
+        ChargeTypesViewModel UpdateStandardChargeDescription(string id, string description, string email);
+        ChargeTypesViewModel UpdateStandardChargeRate(string id, string rate, string email);
     }
 
     public class StableChargeTypeService : IStableChargeTypeService
@@ -55,13 +59,56 @@ namespace EStable.Services
             return SaveXmlAndGetViewModel(email, wizard);
         }
 
-        public List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, string instable, string email)
+        public List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, bool instable, string email)
         {
             var wizard = _wizardService.GetWizard(email);
 
             wizard.SaveStableChargeTypeInStable(id, instable);
 
             return SaveXmlAndGetViewModel(email, wizard);
+        }
+
+        public List<StableChargeTypeViewModel> UpdateStableChargeDescription(string id, string description, string email)
+        {
+            var wizard = _wizardService.GetWizard(email);
+
+            wizard.SaveStableChargeTypeDescription(id, description);
+
+            return SaveXmlAndGetViewModel(email, wizard);
+        }
+
+        public List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email)
+        {
+            var wizard = _wizardService.GetWizard(email);
+
+            wizard.SaveStableChargeTypeChargeRate(id, rate);
+
+            return SaveXmlAndGetViewModel(email, wizard);
+        }
+
+        public ChargeTypesViewModel UpdateStandardChargeDescription(string id, string description, string email)
+        {
+            var wizard = _wizardService.GetWizard(email);
+
+            wizard.SaveStandardChargeTypeChargeDescription(id, description);
+
+            return SaveXmlAndGetChargeTypeViewModel(email, wizard);
+        }
+
+        public ChargeTypesViewModel UpdateStandardChargeRate(string id, string rate, string email)
+        {
+            var wizard = _wizardService.GetWizard(email);
+
+            wizard.SaveStandardChargeTypeChargeRate(id, rate);
+
+            return SaveXmlAndGetChargeTypeViewModel(email, wizard);
+        }
+
+        private ChargeTypesViewModel SaveXmlAndGetChargeTypeViewModel(string email, SummaryWizard wizard)
+        {
+            SaveXml(email, wizard);
+
+            return _factory.ToViewModel(wizard.ChargeTypes);
         }
 
         private List<StableChargeTypeViewModel> SaveXmlAndGetViewModel(string email, SummaryWizard wizard)

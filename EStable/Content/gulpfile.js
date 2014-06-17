@@ -35,6 +35,7 @@ gulp.task('scripts', function () {
                             'src/js/vendor/bootstrap.js',
                             'src/js/vendor/bootstrap-editable.js',
                             'src/js/vendor/jquery.dynatable.js',
+                            'src/js/EstableBase.js',
                             'src/js/Wizard/**/*.js']));
 
 
