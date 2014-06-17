@@ -18,6 +18,8 @@ namespace EStable.Bouncers
         List<StableChargeTypeViewModel> UpdateStableChargeInstable(string id, bool instable, string email);
         List<StableChargeTypeViewModel> UpdateStableChargeDescription(string id, string description, string email);
         List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email);
+        ChargeTypesViewModel UpdateStandardChargeDescription(string id, string description, string email);
+        ChargeTypesViewModel UpdateStandardChargeRate(string id, string rate, string email);
     }
 
     public class StableChargeTypeBouncer : IStableChargeTypeBouncer
@@ -54,6 +56,16 @@ namespace EStable.Bouncers
         public List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email)
         {
             return _service.UpdateStableChargeRate(id, rate, email);
+        }
+
+        public ChargeTypesViewModel UpdateStandardChargeDescription(string id, string description, string email)
+        {
+            return _service.UpdateStandardChargeDescription(id, description, email);
+        }
+
+        public ChargeTypesViewModel UpdateStandardChargeRate(string id, string rate, string email)
+        {
+            return _service.UpdateStandardChargeRate(id, rate, email);
         }
     }
 }

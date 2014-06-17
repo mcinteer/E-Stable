@@ -127,5 +127,15 @@ namespace EStable.Models.Wizard
         {
             ChargeTypes.SaveStableChargeTypeChargeRate(id, rate);
         }
+
+        public void SaveStandardChargeTypeChargeRate(string id, string rate)
+        {
+            ChargeTypes.SaveStandardChargeTypeChargeRate(id, rate);
+        }
+
+        public void SaveStandardChargeTypeChargeDescription(string id, string description)
+        {
+            ChargeTypes.SaveStandardChargeTypeChargeDescription(id, description);
+        }
     }
 }

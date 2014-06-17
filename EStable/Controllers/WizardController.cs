@@ -383,7 +383,7 @@ namespace EStable.Controllers
         public JsonResult SaveStableCharge(string unit, string instable, string description, string rate, string email)
         {
             var charges = _stableChargeTypeBouncer.SaveNewStableCharge(unit, instable, description, rate, email);
-            return GetStableChargeJson(charges);
+            return GetChargeTypeJson(charges);
         }
 
         [HttpPost]
@@ -414,17 +414,47 @@ namespace EStable.Controllers
                     break;
             }
 
-            return GetStableChargeJson(charges);
+            return GetChargeTypeJson(charges);
         }
 
-        private static JsonResult GetStableChargeJson(List<StableChargeTypeViewModel> charges)
+        
+
+        [HttpPost]
+        public JsonResult UpdateStandardCharge(string id, string columnName, string updatedValue, string email)
+        {
+            ChargeTypesViewModel charges = null;
+            switch (columnName)
+            {
+                case Codes.StableCharges.Columns.Description:
+                    charges = _stableChargeTypeBouncer.UpdateStandardChargeDescription(id, updatedValue, email);
+                    break;
+                case Codes.StableCharges.Columns.Rate:
+                    charges = _stableChargeTypeBouncer.UpdateStandardChargeRate(id, updatedValue, email);
+                    break;
+            }
+
+            return GetStandardChargeTypeJson(charges, charges.StandardChargeTypes.Count);
+        }
+
+        private JsonResult GetChargeTypeJson(List<StableChargeTypeViewModel> charges)
+        {
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    records = charges,
+                    totalRecordCount = charges.Count
+                }
+            };
+        }
+        private static JsonResult GetStandardChargeTypeJson(ChargeTypesViewModel charges, int totalRecordCount)
         {
             return new JsonResult()
                 {
                     Data = new
                         {
-                            records = charges,
-                            totalRecordCount = charges.Count
+                            records = charges.StandardChargeTypes,
+                            totalRecordCount
                         }
                 };
         }

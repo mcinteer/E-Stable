@@ -175,5 +175,31 @@ namespace EStable.Models.Wizard
                 throw new ArgumentOutOfRangeException();
             }
         }
+
+        public void SaveStandardChargeTypeChargeRate(string id, string rate)
+        {
+            var charge = StableChargeTypes.SingleOrDefault(ch => ch.StableChargeTypeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.ChargeRate = rate;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SaveStandardChargeTypeChargeDescription(string id, string description)
+        {
+            var charge = StandardChargeTypes.SingleOrDefault(ch => ch.StandardChargeId.ToString() == id);
+            if (charge != null)
+            {
+                charge.Description = description;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

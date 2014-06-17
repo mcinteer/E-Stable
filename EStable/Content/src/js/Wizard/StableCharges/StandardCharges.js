@@ -1,5 +1,4 @@
 ﻿$(function() {
-
     var standardCharges = {
         createStandardChargesTable: function(data) {
             $('#tblStandardCharges').dynatable({
@@ -11,6 +10,10 @@
                 },
                 inputs: {
                     processingText: 'Fetching new Charges'
+                },
+                writers: {
+                    _cellWriter: $.fn.estableEditableCellWriter,
+                    _rowWriter: $.fn.estableEditableRowWriter
                 }
             });
         },
@@ -36,7 +39,7 @@
                     rate: $('#std-rate').val(),
                     email: $('#email').val()
                 },
-                success: function(data) {
+                success: function (data) {
                     dynatable.records.updateFromJson(data);
                     dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records
                     dynatable.process();
@@ -61,11 +64,16 @@
         });
 
         $("#close-standard-charge").live('click', function () {
-            deselectStandardCharge();
+            standardCharges.deselectStandardCharge();
             return false;
         });
     }
 
+    function setupStandardChargeInputs() {
+        debugger;
+        $.fn.setupInputs('#tblStandardCharges', '../../../../../Wizard/UpdateStandardCharge', {});
+    }
+    
     if (!$('#standardChargeData').length) {
         console.warn('You need to define your data Ryan!');
         return;
@@ -74,5 +82,5 @@
     setupEventListeners();
     var standardChargeData = $.fn.htmlDecode($('#standardChargeData').html());
     standardCharges.createStandardChargesTable(JSON.parse(standardChargeData));
-    
+    setupStandardChargeInputs();
 });

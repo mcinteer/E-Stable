@@ -85,7 +85,6 @@
     }
 
     function setupStableChargeInputs() {
-        
         $.fn.setupInputs('#tblStableCharges', '../../../../../Wizard/UpdateStableCharge', selectOptions);
     }
     

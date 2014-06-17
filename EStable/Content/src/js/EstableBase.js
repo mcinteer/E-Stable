@@ -35,7 +35,8 @@
                             email: $('#email').val(),
                             updatedValue: record.value
                         },
-                        success: function(data) {
+                        success: function (data) {
+                            debugger;
                             dynatable.records.updateFromJson(data);
                             dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records;
                             dynatable.process();
