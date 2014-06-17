@@ -10,9 +10,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
-    //notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    livereload = require('gulp-livereload');
+    cache = require('gulp-cache');
+
 
 gulp.task('styles', function () {
       return gulp.src('src/sass/**/*.scss')
@@ -54,17 +53,20 @@ gulp.task('clean', function() {
 });
 
 
- gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean'], function() {
     gulp.start('styles', 'scripts');
 });
 
 
- // Watch
- gulp.task('watch', function () {
+// Watch
+gulp.task('watch', function () {
+    var cssWatcher = gulp.watch(['src/sass/**/*.scss'], ['styles']);
+    cssWatcher.on('change', function(event) {
+        console.log(event.type, event.path);
+    });
 
-     // Watch .scss files
-     gulp.src('src/sass/**/*.scss')
-         .pipe(watch(function (files) {
-             return gulp.start('scripts', 'styles');
-         }));
+    var jsWatcher = gulp.watch(['src/js/**/*.js'], ['scripts']);
+    jsWatcher.on('change', function(event) {
+        console.log(event.type, event.path);
+    });
  });
