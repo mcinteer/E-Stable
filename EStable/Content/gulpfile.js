@@ -3,15 +3,15 @@ var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
+    streamqueue = require('streamqueue'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
-    //notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    livereload = require('gulp-livereload');
+    cache = require('gulp-cache');
+
 
 gulp.task('styles', function () {
       return gulp.src('src/sass/**/*.scss')
@@ -24,8 +24,21 @@ gulp.task('styles', function () {
     //.pipe(notify({ message: 'Styles task complete' }));
 });
 
-gulp.task('scripts', function() {
-  return gulp.src('src/js/**/*.js')
+gulp.task('scripts', function () {
+    var stream = streamqueue({ objectMode: true });
+
+//    stream.queue(Fs.createReadStream('jquery.min.js
+
+
+
+    stream.queue(gulp.src([ 'src/js/vendor/jquery.min.js',
+                            'src/js/vendor/bootstrap.js',
+                            'src/js/vendor/bootstrap-editable.js',
+                            'src/js/vendor/jquery.dynatable.js',
+                            'src/js/Wizard/**/*.js']));
+
+
+  return stream.done()
     .pipe(concat('EstableBase.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(rename({suffix: '.min'}))
@@ -40,17 +53,20 @@ gulp.task('clean', function() {
 });
 
 
- gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean'], function() {
     gulp.start('styles', 'scripts');
 });
 
 
- // Watch
- gulp.task('watch', function () {
+// Watch
+gulp.task('watch', function () {
+    var cssWatcher = gulp.watch(['src/sass/**/*.scss'], ['styles']);
+    cssWatcher.on('change', function(event) {
+        console.log(event.type, event.path);
+    });
 
-     // Watch .scss files
-     gulp.src('src/sass/**/*.scss')
-         .pipe(watch(function (files) {
-             return gulp.start('scripts', 'styles');
-         }));
+    var jsWatcher = gulp.watch(['src/js/**/*.js'], ['scripts']);
+    jsWatcher.on('change', function(event) {
+        console.log(event.type, event.path);
+    });
  });

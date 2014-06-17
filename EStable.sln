@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EStable", "EStable\EStable.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EStable.Tests", "EStable.Tests\EStable.Tests.csproj", "{65A2C73C-BA34-4380-BDB2-46E2C129BA63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estable.Common", "Estable.Common\Estable.Common.csproj", "{4BD90C44-BEDB-4F39-A26F-831578BC3F29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{65A2C73C-BA34-4380-BDB2-46E2C129BA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65A2C73C-BA34-4380-BDB2-46E2C129BA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65A2C73C-BA34-4380-BDB2-46E2C129BA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BD90C44-BEDB-4F39-A26F-831578BC3F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BD90C44-BEDB-4F39-A26F-831578BC3F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BD90C44-BEDB-4F39-A26F-831578BC3F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BD90C44-BEDB-4F39-A26F-831578BC3F29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -107,5 +107,15 @@ namespace EStable.Models.Wizard
         {
             ChargeTypes.AddStandardChargeTypes(chargeTypes);
         }
+
+        public void SaveStableChargeTypeUnit(string id, string unit)
+        {
+            ChargeTypes.SaveStableChargeTypeUnit(id, unit);
+        }
+
+        public void SaveStableChargeTypeInStable(string id, string instable)
+        {
+            ChargeTypes.SaveStableChargeTypeInstable(id, instable);
+        }
     }
 }

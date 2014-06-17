@@ -437,11 +437,13 @@
     };
 
     this.add = function($column, position, skipAppend, skipUpdate) {
+        
       var columns = settings.table.columns,
           label = $column.text(),
           id = $column.data('dynatable-column') || utility.normalizeText(label, settings.table.defaultColumnIdStyle),
           dataSorts = $column.data('dynatable-sorts'),
-          sorts = dataSorts ? $.map(dataSorts.split(','), function(text) { return $.trim(text); }) : [id];
+          sorts = dataSorts ? $.map(dataSorts.split(','), function(text) { return $.trim(text); }) : [id],
+          inputType = $column[0].attributes.inputtype !== undefined ? $column[0].attributes.inputtype.value : "";
 
       // If the column id is blank, generate an id for it
       if ( !id ) {
@@ -455,6 +457,7 @@
         id: id,
         attributeWriter: settings.writers[id] || settings.writers._attributeWriter,
         attributeReader: settings.readers[id] || settings.readers._attributeReader,
+        inputType: inputType,
         sorts: sorts,
         hidden: $column.css('display') === 'none',
         textAlign: $column.css('text-align')
