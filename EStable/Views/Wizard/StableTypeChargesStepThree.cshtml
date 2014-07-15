@@ -13,6 +13,16 @@
 <link href="~/Content/dist/css/Wizard/WizardBase.min.css" rel="stylesheet" />
 <link href="~/Content/dist/css/vendor/bootstrap-editable.min.css" rel="stylesheet" />
 
+<link href="~/Content/src/SlickGrid-master/slick.grid.css" rel="stylesheet" />
+<link href="~/Content/src/SlickGrid-master/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+
+<script src="~/Content/src/SlickGrid-master/lib/jquery-ui-1.8.16.custom.min.js"></script>
+<script src="~/Content/src/SlickGrid-master/lib/jquery.event.drop-2.2.js"></script>
+<script src="~/Content/src/SlickGrid-master/lib/jquery.event.drag-2.2.js"></script>
+<script src="~/Content/src/SlickGrid-master/slick.core.js"></script>
+<script src="~/Content/src/SlickGrid-master/slick.grid.js"></script>
+<script src="~/Content/src/SlickGrid-master/slick.editors.js"></script>
+
 <div id="wizardStepCounter" class="wizard-step-counter">
     <img id="wizardStepImage" src="../../Content/Images/WizardSteps.png" />
 </div>
@@ -32,7 +42,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading tbl-heading">Stable Charge Types</div>
                     <div class="panel-body">
-                
+                        <div class="slick-example" id="slick-example"></div>
+
                         <div class="tbl-container">
                             <table class="table table-striped table-hover" id="tblStableCharges">
                                 <thead class="dynatable-head">
@@ -58,7 +69,7 @@
                             <a href="#" class="btn btn-sm btn-info" id="addStableCharge">Add a Stable Charge</a>
                         </div>
                         
-                       @* <a href="#" id="importStableCharges" class="btn btn-sm btn-info">Import Stable Charges</a> <input type="file" id="import"/>*@
+                        @* <a href="#" id="importStableCharges" class="btn btn-sm btn-info">Import Stable Charges</a> <input type="file" id="import"/>*@
                     </div>
                 </div>
                 @*--------------------------------------------------------------------------------------------------------------------------------------------*@
