@@ -386,6 +386,32 @@ namespace EStable.Controllers
             return GetChargeTypeJson(charges);
         }
 
+        public JsonResult AddNewStableCharge(string chargeJson, string email)
+        {
+            var charge = System.Web.Helpers.Json.Decode<UiStableCharge>(chargeJson);
+            var charges = _stableChargeTypeBouncer.SaveNewStableCharge(charge.Unit, charge.InStable, charge.Description,
+                                                                       charge.Rate, email);
+            return GetChargeTypeJson(charges);
+        }
+
+        public JsonResult SaveStableCharges(string chargeJson, string email)
+        {
+            var charges = System.Web.Helpers.Json.Decode<List<UiStableCharge>>(chargeJson);
+            
+            var savedCharges = _stableChargeTypeBouncer.SaveNewStableCharge(charges, email);
+            
+            return GetChargeTypeJson(savedCharges);
+        }
+
+        public struct UiStableCharge
+        {
+            public string Id;
+            public string Unit;
+            public string Description;
+            public string InStable;
+            public string Rate;
+        }
+
         [HttpPost]
         public JsonResult UpdateStableCharge(string id, string columnName, string updatedValue, string email)
         {

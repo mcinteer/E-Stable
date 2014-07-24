@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using EStable.Constants;
+using EStable.Controllers;
 
 namespace EStable.Models.Wizard
 {
@@ -199,6 +200,18 @@ namespace EStable.Models.Wizard
             else
             {
                 throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void StableCharges(List<WizardController.UiStableCharge> charges)
+        {
+            foreach (var charge in charges)
+            {
+                var chargeToUpdate = StableChargeTypes.First(ch => ch.StableChargeTypeId.ToString() == charge.Id);
+                chargeToUpdate.ChargeRate = charge.Rate;
+                chargeToUpdate.ChargeType = charge.Description;
+                chargeToUpdate.ChargingUnit = charge.Unit;
+                chargeToUpdate.InStable = charge.InStable == "true";
             }
         }
     }

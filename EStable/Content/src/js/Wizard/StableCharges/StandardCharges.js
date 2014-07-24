@@ -70,7 +70,6 @@
     }
 
     function setupStandardChargeInputs() {
-        debugger;
         $.fn.setupInputs('#tblStandardCharges', '../../../../../Wizard/UpdateStandardCharge', {});
     }
     

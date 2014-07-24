@@ -2,6 +2,7 @@
 using System.Web;
 using System.Xml.Serialization;
 using EStable.Constants;
+using EStable.Controllers;
 using EStable.Helpers;
 using EStable.Models.Wizard.Stable_Wizard;
 
@@ -136,6 +137,11 @@ namespace EStable.Models.Wizard
         public void SaveStandardChargeTypeChargeDescription(string id, string description)
         {
             ChargeTypes.SaveStandardChargeTypeChargeDescription(id, description);
+        }
+
+        public void SaveStableCharges(List<WizardController.UiStableCharge> charges)
+        {
+            ChargeTypes.StableCharges(charges);
         }
     }
 }

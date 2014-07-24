@@ -268,6 +268,8 @@
     <Content Include="Content\dist\css\layout.min.css" />
     <Content Include="Content\dist\css\main.css" />
     <Content Include="Content\dist\css\main.min.css" />
+    <Content Include="Content\dist\css\slick.mods.css" />
+    <Content Include="Content\dist\css\slick.mods.min.css" />
     <Content Include="Content\dist\css\vendor\bootstrap-editable.css" />
     <Content Include="Content\dist\css\vendor\bootstrap-editable.min.css" />
     <Content Include="Content\dist\css\vendor\jquery.dynatable.css" />
@@ -999,6 +1001,7 @@
     <Content Include="Content\JQuery\jquery-ui-1.10.2\ui\minified\jquery.ui.tooltip.min.js" />
     <Content Include="Content\JQuery\jquery-ui-1.10.2\ui\minified\jquery.ui.widget.min.js" />
     <None Include="Content\src\sass\vendor\jquery.dynatable.scss" />
+    <None Include="Content\src\sass\slick.mods.scss" />
     <Content Include="Content\src\SlickGrid-master\controls\slick.columnpicker.css" />
     <Content Include="Content\src\SlickGrid-master\controls\slick.columnpicker.js" />
     <Content Include="Content\src\SlickGrid-master\controls\slick.pager.css" />

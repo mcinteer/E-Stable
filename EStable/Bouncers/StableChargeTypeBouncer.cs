@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using EStable.Controllers;
 using EStable.Models.Wizard;
 using EStable.Security;
 using EStable.Services;
@@ -20,12 +21,18 @@ namespace EStable.Bouncers
         List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email);
         ChargeTypesViewModel UpdateStandardChargeDescription(string id, string description, string email);
         ChargeTypesViewModel UpdateStandardChargeRate(string id, string rate, string email);
+        List<StableChargeTypeViewModel> SaveNewStableCharge(List<WizardController.UiStableCharge> charges, string email);
     }
 
     public class StableChargeTypeBouncer : IStableChargeTypeBouncer
     {
         readonly IStableChargeTypeService _service = new StableChargeTypeService();
         //TODO readonly IStableChargeTypeValidator _validator = new StableChargeTypeValidator();
+
+        public List<StableChargeTypeViewModel> SaveNewStableCharge(List<WizardController.UiStableCharge> charges, string email)
+        {
+            return _service.SaveStableCharge(charges, email);
+        }
 
         public List<StableChargeTypeViewModel> SaveNewStableCharge(string unit, string instable, string description, string rate, string email)
         {

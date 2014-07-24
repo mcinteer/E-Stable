@@ -13,6 +13,7 @@
 <link href="~/Content/dist/css/Wizard/WizardBase.min.css" rel="stylesheet" />
 <link href="~/Content/dist/css/vendor/bootstrap-editable.min.css" rel="stylesheet" />
 
+<link href="~/Content/dist/css/slick.mods.min.css" rel="stylesheet" />
 <link href="~/Content/src/SlickGrid-master/slick.grid.css" rel="stylesheet" />
 <link href="~/Content/src/SlickGrid-master/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 
@@ -42,31 +43,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading tbl-heading">Stable Charge Types</div>
                     <div class="panel-body">
+                        <script type="text/html" id="stableChargeObject">@Html.Raw(Json.Encode(Model.StableChargeTypes))</script>
+
                         <div class="slick-example" id="slick-example"></div>
-
-                        <div class="tbl-container">
-                            <table class="table table-striped table-hover" id="tblStableCharges">
-                                <thead class="dynatable-head">
-                                    <th class="dynatable-head" inputType="select">Unit</th>
-                                    <th class="dynatable-head" inputType="select">InStable</th>
-                                    <th class="dynatable-head" inputType="text">Description</th>
-                                    <th class="dynatable-head" inputType="text">Rate</th>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>    
-                    
-                        </div>
                         
-                        <script type="text/html" id="stableChargeData">@Model.GetStableChargeTypesJson()</script>
-                       
-                        
-                        @Html.Partial("Partials/_AddStableChargeForm", new StableChargeTypeViewModel())
-                        
-                        
-
                         <div>
-                            <a href="#" class="btn btn-sm btn-info" id="addStableCharge">Add a Stable Charge</a>
+                            <a href="#" class="btn btn-sm btn-info" id="saveStableCharges">Save Stable Charges</a>
                         </div>
                         
                         @* <a href="#" id="importStableCharges" class="btn btn-sm btn-info">Import Stable Charges</a> <input type="file" id="import"/>*@

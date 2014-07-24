@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using EStable.Controllers;
 using EStable.Importers;
 using EStable.Models;
 using EStable.Models.Wizard;
@@ -21,6 +23,7 @@ namespace EStable.Services
         List<StableChargeTypeViewModel> UpdateStableChargeRate(string id, string rate, string email);
         ChargeTypesViewModel UpdateStandardChargeDescription(string id, string description, string email);
         ChargeTypesViewModel UpdateStandardChargeRate(string id, string rate, string email);
+        List<StableChargeTypeViewModel> SaveStableCharge(List<WizardController.UiStableCharge> charges, string email);
     }
 
     public class StableChargeTypeService : IStableChargeTypeService
@@ -28,6 +31,13 @@ namespace EStable.Services
         private readonly WizardService _wizardService = new WizardService();
         private readonly IChargeTypeViewModelFactory _factory = new ChargeTypeViewModelFactory();
         private readonly IStableChargeImporter _importer = new StableChargeImporter();
+
+        public List<StableChargeTypeViewModel> SaveStableCharge(List<WizardController.UiStableCharge> charges, string email)
+        {
+            var wizard = _wizardService.GetWizard(email);
+            wizard.SaveStableCharges(charges);
+            return SaveXmlAndGetViewModel(email, wizard);
+        }
 
         public List<StableChargeTypeViewModel> SaveStableCharge(string unit, string instable, string description, string rate, string email)
         {
@@ -103,7 +113,7 @@ namespace EStable.Services
 
             return SaveXmlAndGetChargeTypeViewModel(email, wizard);
         }
-
+        
         private ChargeTypesViewModel SaveXmlAndGetChargeTypeViewModel(string email, SummaryWizard wizard)
         {
             SaveXml(email, wizard);

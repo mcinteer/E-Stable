@@ -10634,78 +10634,6 @@ Automatically shown in inline mode.
         }
     };
 });
-﻿function createAnimalTable(data) {
-    $('#tblAnimal').dynatable({
-        dataset: {
-            records: decode(data)
-        },
-        table: {
-            defaultColumnIdStyle: 'stripSpaces'
-        },
-        inputs: {
-            processingText: 'Fetching new Animals'
-        }
-    });
-}
-
-
-function deselectAnimal() {
-    $(".pop-animal").slideFadeToggle(function () {
-        $("#addanimal").removeClass("selected");
-    });
-}
-
-$(function () {
-    $("#addAnimal").live('click', function () {
-        if ($(this).hasClass("selected")) {
-            deselectAnimal();
-        } else {
-            $(this).addClass("selected");
-            $(".pop-animal").slideFadeToggle(function () {
-                $("#racingName").focus();
-            });
-        }
-        return false;
-    });
-
-    $("#close-animal").live('click', function () {
-        deselectAnimal();
-        return false;
-    });
-});
-
-$(function () {
-    $('#submit-add-animal').live('click', function () {
-        var dynatable = $('#tblAnimal').data('dynatable');
-
-        dynatable.processingIndicator.hide();
-        dynatable.processingIndicator.show();
-        $.ajax({
-            type: "POST",
-            url: '../../../../../Wizard/SaveAnimal',
-            data: {
-                racingName: $('#racingName').val(),
-                stableName: $('#stableName').val(),
-                sire: $('#sire').val(),
-                dam: $('#dam').val(),
-                gender: $('#gender').val(),
-                dateOfBirth: $('#dateOfBirth').val(),
-                colour: $('#colour').val(),
-                markings: $('#markings').val(),
-                email: $('#email').val()
-            },
-            success: function (data) {
-                dynatable.records.updateFromJson(data);
-                dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records
-                dynatable.process();
-                dynatable.processingIndicator.hide();
-            },
-            error: function (data) {
-                var test = '';
-            }
-        });
-    });
-});
 ﻿function createOwnerTable(data, tableID) {
     $('#tbl-'+tableID).dynatable({
         dataset: {
@@ -10892,7 +10820,12 @@ function setupSubmitAddOwnerClickEvent(tableID) {
 });
 ﻿$(function () {
 	var stableCharges = {
-		columns: [
+	    columns: [
+	        {
+	            name: 'Id',
+	            field: 'Id',
+	            id: 'id'
+	        },
 			{
 				name: 'Unit',
 				field: 'Unit',
@@ -10918,40 +10851,76 @@ function setupSubmitAddOwnerClickEvent(tableID) {
 				editor: Slick.Editors.Text
 			}
 		],
-		rows: [
-			{
-				Unit: 'unit',
-				InStable: 'in-stable',
-				Description: 'description',
-				Rate: 'rate'
-			},
-			{
-				Unit: 'unit',
-				InStable: 'in-stable',
-				Description: 'description',
-				Rate: 'rate'
-			},
-			{
-				Unit: 'unit',
-				InStable: 'in-stable',
-				Description: 'description',
-				Rate: 'rate'
-			}
-		],
+		rows: JSON.parse($('#stableChargeObject').text()),
 		options: {
 				editable: true,
-				enableAddRow: false,
+				enableAddRow: true,
 				enableCellNavigation: true,
-				asyncEditorLoading: false
+				asyncEditorLoading: false,
+				leaveSpaceForNewRows: true,
+				forceFitColumns: true,
+				syncColumnCellResize: true,
+				multiColumnSort: true
 			},
 		controller: {
-			Initialize: function() {
-				grid = new Slick.Grid('#slick-example', stableCharges.rows, stableCharges.columns, stableCharges.options);
+			CreateGrid: function() {
+				return new Slick.Grid('#slick-example', stableCharges.rows, stableCharges.columns, stableCharges.options);
+			},
+			SubscribeToEvents: function(grid) {
+			    this.SubscribeToOnAddNewRoadfunction(grid);
+			    this.SubscribeToSaveStableChargesButton(grid);
+			},
+			SubscribeToSaveStableChargesButton: function (grid) {
+			    $("#saveStableCharges").live('click', function () {
+			        $.ajax({
+			            type: "POST",
+			            url: '../../../../../Wizard/SaveStableCharges',
+			            data: {
+			                chargeJson: JSON.stringify(grid.getData()),
+			                email: $('#email').val()
+			            },
+			            success: function (data) {
+			                grid.setData(data.records);
+			                grid.render();
+			            },
+			            error: function (data) {
+			                var test = '';
+			            }
+			        });
+			    });
+			},
+			SubscribeToOnAddNewRoadfunction: function (grid) {
+			    grid.onAddNewRow.subscribe(function (e, args) {
+			        var stableCharge = {
+			            Id: args.item.Id,
+			            Unit: args.item.Unit || '',
+			            Description: args.item.Description || '',
+			            InStable: args.item.InStable || '',
+			            Rate: args.item.Rate || ''
+			        };
+
+			        $.ajax({
+			            type: "POST",
+			            url: '../../../../../Wizard/AddNewStableCharge',
+			            data: {
+			                chargeJson: JSON.stringify(stableCharge),
+			                email: $('#email').val()
+			            },
+			            success: function (data) {
+			                grid.setData(data.records);
+			                grid.render();
+			            },
+			            error: function (data) {
+			                var test = '';
+			            }
+			        });
+			    });
 			}
 		}
 	};
 
-	stableCharges.controller.Initialize();
+	var stableChargesGrid = stableCharges.controller.CreateGrid();
+	stableCharges.controller.SubscribeToEvents(stableChargesGrid);
 });
 ﻿$(function() {
     var standardCharges = {
@@ -11025,7 +10994,6 @@ function setupSubmitAddOwnerClickEvent(tableID) {
     }
 
     function setupStandardChargeInputs() {
-        debugger;
         $.fn.setupInputs('#tblStandardCharges', '../../../../../Wizard/UpdateStandardCharge', {});
     }
     
@@ -11038,4 +11006,77 @@ function setupSubmitAddOwnerClickEvent(tableID) {
     var standardChargeData = $.fn.htmlDecode($('#standardChargeData').html());
     standardCharges.createStandardChargesTable(JSON.parse(standardChargeData));
     setupStandardChargeInputs();
+});
+
+﻿function createAnimalTable(data) {
+    $('#tblAnimal').dynatable({
+        dataset: {
+            records: decode(data)
+        },
+        table: {
+            defaultColumnIdStyle: 'stripSpaces'
+        },
+        inputs: {
+            processingText: 'Fetching new Animals'
+        }
+    });
+}
+
+
+function deselectAnimal() {
+    $(".pop-animal").slideFadeToggle(function () {
+        $("#addanimal").removeClass("selected");
+    });
+}
+
+$(function () {
+    $("#addAnimal").live('click', function () {
+        if ($(this).hasClass("selected")) {
+            deselectAnimal();
+        } else {
+            $(this).addClass("selected");
+            $(".pop-animal").slideFadeToggle(function () {
+                $("#racingName").focus();
+            });
+        }
+        return false;
+    });
+
+    $("#close-animal").live('click', function () {
+        deselectAnimal();
+        return false;
+    });
+});
+
+$(function () {
+    $('#submit-add-animal').live('click', function () {
+        var dynatable = $('#tblAnimal').data('dynatable');
+
+        dynatable.processingIndicator.hide();
+        dynatable.processingIndicator.show();
+        $.ajax({
+            type: "POST",
+            url: '../../../../../Wizard/SaveAnimal',
+            data: {
+                racingName: $('#racingName').val(),
+                stableName: $('#stableName').val(),
+                sire: $('#sire').val(),
+                dam: $('#dam').val(),
+                gender: $('#gender').val(),
+                dateOfBirth: $('#dateOfBirth').val(),
+                colour: $('#colour').val(),
+                markings: $('#markings').val(),
+                email: $('#email').val()
+            },
+            success: function (data) {
+                dynatable.records.updateFromJson(data);
+                dynatable.settings.dataset.originalRecords = dynatable.settings.dataset.records
+                dynatable.process();
+                dynatable.processingIndicator.hide();
+            },
+            error: function (data) {
+                var test = '';
+            }
+        });
+    });
 });

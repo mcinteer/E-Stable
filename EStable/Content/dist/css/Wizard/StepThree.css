@@ -18,10 +18,6 @@
   float: right;
 }
 
-#addStableCharge {
-  float: left;
-}
-
 .file-wrapper {
   cursor: pointer;
   display: inline-block;
@@ -54,12 +50,6 @@
   cursor: pointer;
 }
 
-.stable-charge-upload-wrapper {
-  position: absolute;
-  bottom: 723px;
-  left: 885px;
-}
-
 .standard-charge-upload-wrapper {
   position: absolute;
   bottom: 99px;
@@ -68,5 +58,10 @@
 
 .slick-example {
   width: 100%;
-  height: 500px;
+  height: 400px;
+  margin: auto;
+}
+
+#saveStableCharges {
+  float: right;
 }
