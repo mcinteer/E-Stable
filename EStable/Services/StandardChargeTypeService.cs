@@ -29,7 +29,8 @@ namespace EStable.Services
         public List<StandardChargeTypeViewModel> SaveStandardCharge(string description, string rate, string email)
         {
             var wizard = _wizardService.GetWizard(email);
-            var standardCharge = new StandardCharge(description, rate);
+            var id = wizard.ChargeTypes.StandardChargeTypes.Max(c => c.StandardChargeId) + 1;
+            var standardCharge = new StandardCharge(id, description, rate);
             wizard.AddStandardCharge(standardCharge);
 
             return SaveXmlAndGetViewModel(email, wizard);

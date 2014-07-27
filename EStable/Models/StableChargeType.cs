@@ -14,12 +14,13 @@
             ChargeRate = rate;
         }
 
-        public StableChargeType(string description, string rate, string unit, bool instable)
+        public StableChargeType(int id, string description, string rate, string unit, bool instable)
         {
             ChargingUnit = unit;
             InStable = instable;
             ChargeType = description;
             ChargeRate = rate;
+            StableChargeTypeId = id;
         }
 
         public int StableChargeTypeId { get; set; } 

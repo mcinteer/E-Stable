@@ -6,10 +6,11 @@
         {
             
         }
-        public StandardCharge(string description, string rate)
+        public StandardCharge(int id, string description, string rate)
         {
             Description = description;
             Value = rate;
+            StandardChargeId = id;
         }
 
         public int StandardChargeId { get; set; }

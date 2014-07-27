@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 using EStable.Constants;
 using EStable.Controllers;
 
@@ -27,76 +25,76 @@ namespace EStable.Models.Wizard
                 case Codes.StableType.Greyhound:
                     StableChargeTypes = new List<StableChargeType>()
                         {
-                            new StableChargeType("Full Training","$","Daily",true),
-                            new StableChargeType("Pre-Training","$","Daily",true),
-                            new StableChargeType("Spelling","$","Daily",true),
-                            new StableChargeType("Grazing","$","Daily",true),
-                            new StableChargeType( "Left Stable","0.00","Daily",false)
+                            new StableChargeType(1, "Full Training","$","Daily",true),
+                            new StableChargeType(2, "Pre-Training","$","Daily",true),
+                            new StableChargeType(3, "Spelling","$","Daily",true),
+                            new StableChargeType(4, "Grazing","$","Daily",true),
+                            new StableChargeType(5, "Left Stable","0.00","Daily",false)
                         };
                     StandardChargeTypes = new List<StandardCharge>()
                         {
-                            new StandardCharge("Track Fees","$"),
-                            new StandardCharge("Vitamins","$")
+                            new StandardCharge(1, "Track Fees","$"),
+                            new StandardCharge(2, "Vitamins","$")
                         };
                     break;
                 case Codes.StableType.Pacer:
                     StableChargeTypes = new List<StableChargeType>()
                         {
-                            new StableChargeType("Full Training","$","Daily",true),
-                            new StableChargeType("Pre-Training","$","Daily",true),
-                            new StableChargeType("Spelling","$","Daily",true),
-                            new StableChargeType("Grazing","$","Daily",true),
-                            new StableChargeType( "Left Stable","0.00","Daily",false)
+                            new StableChargeType(1, "Full Training","$","Daily",true),
+                            new StableChargeType(2, "Pre-Training","$","Daily",true),
+                            new StableChargeType(3, "Spelling","$","Daily",true),
+                            new StableChargeType(4, "Grazing","$","Daily",true),
+                            new StableChargeType(5, "Left Stable","0.00","Daily",false)
                         };
                     StandardChargeTypes = new List<StandardCharge>()
                         {
-                            new StandardCharge("Track Fees","$"),
-                            new StandardCharge("Vitamins","$")
+                            new StandardCharge(1, "Track Fees","$"),
+                            new StandardCharge(2, "Vitamins","$")
                         };
                     break;
                 case Codes.StableType.Thoroughbred:
                     StableChargeTypes = new List<StableChargeType>()
                         {
-                            new StableChargeType("Full Training","$","Daily",true),
-                            new StableChargeType("Pre-Training","$","Daily",true),
-                            new StableChargeType("Spelling","$","Daily",true),
-                            new StableChargeType("Grazing","$","Daily",true),
-                            new StableChargeType( "Left Stable","0.00","Daily",false)
+                            new StableChargeType(1, "Full Training","$","Daily",true),
+                            new StableChargeType(2, "Pre-Training","$","Daily",true),
+                            new StableChargeType(3, "Spelling","$","Daily",true),
+                            new StableChargeType(4, "Grazing","$","Daily",true),
+                            new StableChargeType(5, "Left Stable","0.00","Daily",false)
                         };
                     StandardChargeTypes = new List<StandardCharge>()
                         {
-                            new StandardCharge("Track Fees","$"),
-                            new StandardCharge("Vitamins","$")
+                            new StandardCharge(1, "Track Fees","$"),
+                            new StandardCharge(2, "Vitamins","$")
                         };
                     break;
                 case Codes.StableType.Trotter:
                     StableChargeTypes = new List<StableChargeType>()
                         {
-                            new StableChargeType("Full Training","$","Daily",true),
-                            new StableChargeType("Pre-Training","$","Daily",true),
-                            new StableChargeType("Spelling","$","Daily",true),
-                            new StableChargeType("Grazing","$","Daily",true),
-                            new StableChargeType( "Left Stable","0.00","Daily",false)
+                            new StableChargeType(1, "Full Training","$","Daily",true),
+                            new StableChargeType(2, "Pre-Training","$","Daily",true),
+                            new StableChargeType(3, "Spelling","$","Daily",true),
+                            new StableChargeType(4, "Grazing","$","Daily",true),
+                            new StableChargeType(5, "Left Stable","0.00","Daily",false)
                         };
                     StandardChargeTypes = new List<StandardCharge>()
                         {
-                            new StandardCharge("Track Fees","$"),
-                            new StandardCharge("Vitamins","$")
+                            new StandardCharge(1, "Track Fees","$"),
+                            new StandardCharge(2, "Vitamins","$")
                         };
                     break;
                 default:
                     StableChargeTypes = new List<StableChargeType>()
                         {
-                            new StableChargeType("Full Training","$","Daily",true),
-                            new StableChargeType("Pre-Training","$","Daily",true),
-                            new StableChargeType("Spelling","$","Daily",true),
-                            new StableChargeType("Grazing","$","Daily",true),
-                            new StableChargeType( "Left Stable","0.00","Daily",false)
+                            new StableChargeType(1, "Full Training","$","Daily",true),
+                            new StableChargeType(2, "Pre-Training","$","Daily",true),
+                            new StableChargeType(3, "Spelling","$","Daily",true),
+                            new StableChargeType(4, "Grazing","$","Daily",true),
+                            new StableChargeType(5, "Left Stable","0.00","Daily",false)
                         };
                     StandardChargeTypes = new List<StandardCharge>()
                         {
-                            new StandardCharge("Track Fees","$"),
-                            new StandardCharge("Vitamins","$")
+                            new StandardCharge(1, "Track Fees","$"),
+                            new StandardCharge(2, "Vitamins","$")
                         };
                     break;
             }

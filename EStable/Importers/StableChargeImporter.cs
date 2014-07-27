@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 using EStable.Models;
-using EStable.ViewModels.UserOfStableViewModels.Wizard.StepThree;
 using LumenWorks.Framework.IO.Csv;
 
 namespace EStable.Importers
@@ -29,6 +26,7 @@ namespace EStable.Importers
                 bool instable;
                 string description;
                 string rate;
+                int id;
 // ReSharper restore TooWideLocalVariableScope
                 while (reader.ReadNextRecord())
                 {
@@ -36,8 +34,8 @@ namespace EStable.Importers
                     instable = reader[1] == "true";
                     description = reader[2];
                     rate = reader[3];
-
-                    result.Add(new StableChargeType(description, rate, unit, instable));
+                    id = result.Max(c => c.StableChargeTypeId) + 1;
+                    result.Add(new StableChargeType(id, description, rate, unit, instable));
                 }
             }
             return result;

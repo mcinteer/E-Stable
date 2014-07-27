@@ -24,13 +24,14 @@ namespace EStable.Importers
                 // ReSharper disable TooWideLocalVariableScope
                 string description;
                 string rate;
+                int id;
                 // ReSharper restore TooWideLocalVariableScope
                 while (reader.ReadNextRecord())
                 {
                     description = reader[0];
                     rate = reader[1];
-
-                    result.Add(new StandardCharge(description, rate));
+                    id = result.Max(c => c.StandardChargeId) + 1;
+                    result.Add(new StandardCharge(id, description, rate));
                 }
             }
             return result;
