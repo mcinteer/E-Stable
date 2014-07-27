@@ -4,30 +4,37 @@
 	        {
 	            name: 'Id',
 	            field: 'Id',
-	            id: 'id'
+	            id: 'id',
+	            focusable: false,
+	            sortable:true,
+	            width: 0
 	        },
 			{
 				name: 'Unit',
 				field: 'Unit',
 				id: 'unit',
+				sortable: true,
 				editor: Slick.Editors.Text
 			},
 			{
 				name: 'In Stable',
 				field:'InStable',
-				id:'in-stable',
-				editor: Slick.Editors.Text
+				id: 'in-stable',
+				sortable: true,
+				editor: Slick.Editors.Checkbox
 			},
 			{
 				name: 'Description',
 				field: 'Description',
 				id: 'description',
+				sortable: true,
 				editor: Slick.Editors.Text
 			},
 			{
 				name: 'Rate',
 				field: 'Rate',
 				id: 'rate',
+				sortable: true,
 				editor: Slick.Editors.Text
 			}
 		],
