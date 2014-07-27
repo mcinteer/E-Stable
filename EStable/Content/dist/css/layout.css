@@ -248,3 +248,16 @@ input {
 .less-margin {
   margin-top: 0em;
 }
+
+.slick-cell input {
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+  width: 100%;
+  line-height: 1em;
+  border: 0;
+}
+.slick-cell input:focus {
+  outline: 0;
+}

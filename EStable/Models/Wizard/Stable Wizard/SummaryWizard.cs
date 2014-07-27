@@ -33,7 +33,6 @@ namespace EStable.Models.Wizard
         {
             ContactInformation = new ContactInformationWizard();
             FinancialInformation = new FinancialInformationWizard();
-            ChargeTypes = new ChargeTypesWizard();
             AnimalDetails = new AnimalDetailsWizardBase();
             //StableAnimalChargeType = new StableAnimalChargeTypeWizardBase();
             AnimalOwners = new AnimalOwnersBase();
