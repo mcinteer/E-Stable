@@ -103,7 +103,7 @@ namespace EStable.Models.Wizard
 
         public void AddStableChargeType(StableChargeType stableChargeType)
         {
-            stableChargeType.StableChargeTypeId = StableChargeTypes.Count;
+            stableChargeType.StableChargeTypeId = StableChargeTypes.Count + 1;
             StableChargeTypes.Add(stableChargeType);
         }
 

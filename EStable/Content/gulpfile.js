@@ -29,8 +29,6 @@ gulp.task('scripts', function () {
 
 //    stream.queue(Fs.createReadStream('jquery.min.js
 
-
-
     stream.queue(gulp.src([ 'src/js/vendor/jquery.min.js',
                             'src/js/vendor/bootstrap.js',
                             'src/js/vendor/bootstrap-editable.js',

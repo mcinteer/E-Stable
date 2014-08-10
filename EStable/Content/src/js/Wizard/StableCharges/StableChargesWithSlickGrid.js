@@ -51,10 +51,10 @@
 			},
 		controller: {
 			CreateGrid: function() {
-				return new Slick.Grid('#slick-example', stableCharges.rows, stableCharges.columns, stableCharges.options);
+				return new Slick.Grid('#stable-charge-table', stableCharges.rows, stableCharges.columns, stableCharges.options);
 			},
 			SubscribeToEvents: function(grid) {
-			    this.SubscribeToOnAddNewRoadfunction(grid);
+			    this.SubscribeToOnAddNewRowfunction(grid);
 			    this.SubscribeToSaveStableChargesButton(grid);
 			},
 			SubscribeToSaveStableChargesButton: function (grid) {
@@ -76,7 +76,7 @@
 			        });
 			    });
 			},
-			SubscribeToOnAddNewRoadfunction: function (grid) {
+			SubscribeToOnAddNewRowfunction: function (grid) {
 			    grid.onAddNewRow.subscribe(function (e, args) {
 			        var stableCharge = {
 			            Id: args.item.Id,

@@ -1002,6 +1002,7 @@
     <Content Include="Content\JQuery\jquery-ui-1.10.2\ui\minified\jquery.ui.widget.min.js" />
     <None Include="Content\src\sass\vendor\jquery.dynatable.scss" />
     <None Include="Content\src\sass\slick.mods.scss" />
+    <Content Include="Content\src\js\Wizard\StableCharges\StandardChargesWithSlick.js" />
     <Content Include="Content\src\SlickGrid-master\controls\slick.columnpicker.css" />
     <Content Include="Content\src\SlickGrid-master\controls\slick.columnpicker.js" />
     <Content Include="Content\src\SlickGrid-master\controls\slick.pager.css" />

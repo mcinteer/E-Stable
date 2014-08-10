@@ -45,7 +45,7 @@
                     <div class="panel-body">
                         <script type="text/html" id="stableChargeObject">@Html.Raw(Json.Encode(Model.StableChargeTypes))</script>
 
-                        <div class="slick-example" id="slick-example"></div>
+                        <div class="charge-table" id="stable-charge-table"></div>
                         
                         <div>
                             <a href="#" class="btn btn-sm btn-info" id="saveStableCharges">Save Stable Charges</a>
@@ -60,9 +60,11 @@
                     <div class="panel-heading tbl-heading">Standard Charge Types</div>
                     <div class="panel-body">
                         
-                        <script type="text/html" id="standardChargeData">@Model.GetStandardChargeTypesJson()</script>
-                       
-                        <a href="#" class="btn btn-sm btn-info" id="addStandardCharge">Add a Standard Charge</a>
+                        <script type="text/html" id="standardChargeData">@Html.Raw(Json.Encode(Model.StandardChargeTypes))</script>
+                        
+                        <div>
+                            <a href="#" class="btn btn-sm btn-info" id="saveStandardCharges">Save Standard Charges</a>
+                        </div>
                     </div>
                 </div>
 
@@ -103,8 +105,6 @@
                 </div>
             }
         </div>
-        
-        
     </div>
 </div>
 
